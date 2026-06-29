@@ -5,13 +5,12 @@ import 'package:url_launcher/url_launcher.dart';
 class AppConstants {
   // Ссылки на GitHub релизы
   static const String doskaDownloadUrl =
-      'https://github.com/pudra-soft/doska/releases';
+      'https://github.com/MiOlika/DoSka/releases/download/0.1.6.0/DoSka_0.1.6.0.msi';
   static const String timeFillerDownloadUrl =
-      'https://github.com/pudra-soft/timefiller/releases';
+      'https://github.com/MiOlika/Time-Filler/releases/download/0.3.3.0/Time_Filler_0.3.3.0.msi';
 
   // Социальные ссылки
   static const String vkUrl = 'https://vk.ru/pudra_soft';
-  static const String githubUrl = 'https://github.com/pudra-soft';
 
   // Названия приложений
   static const String doskaTitle = 'DoSka';

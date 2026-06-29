@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import '../utils/constants.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -52,28 +53,10 @@ class Footer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton.icon(
-                onPressed: () async {
-                  final url = Uri.parse('https://vk.ru/pudra_soft');
-                  if (await canLaunchUrl(url)) {
-                    await launchUrl(url);
-                  }
-                },
+                onPressed: () =>
+                    LinkLauncher.launchUrlString(AppConstants.vkUrl),
                 icon: const Icon(Icons.people, size: 18),
                 label: const Text('Группа ВКонтакте'),
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white70,
-                ),
-              ),
-              const SizedBox(width: 16),
-              TextButton.icon(
-                onPressed: () async {
-                  final url = Uri.parse('https://github.com/pudra-soft');
-                  if (await canLaunchUrl(url)) {
-                    await launchUrl(url);
-                  }
-                },
-                icon: const Icon(Icons.code, size: 18),
-                label: const Text('GitHub'),
                 style: TextButton.styleFrom(
                   foregroundColor: Colors.white70,
                 ),

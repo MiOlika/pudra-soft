@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import '../utils/constants.dart';
 
 class AppHeader extends StatelessWidget {
   const AppHeader({super.key});
@@ -53,12 +54,8 @@ class AppHeader extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.support_agent),
-                onPressed: () async {
-                  final url = Uri.parse('https://vk.ru/pudra_soft');
-                  if (await canLaunchUrl(url)) {
-                    await launchUrl(url);
-                  }
-                },
+                onPressed: () =>
+                    LinkLauncher.launchUrlString(AppConstants.vkUrl),
                 tooltip: 'Поддержка ВКонтакте',
               ),
               IconButton(

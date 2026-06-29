@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import '../utils/constants.dart';
 
 class ProductCard extends StatelessWidget {
   final String title;
@@ -53,7 +54,9 @@ class ProductCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
-                  title == 'DoSka' ? Icons.dashboard : Icons.calendar_month,
+                  title == AppConstants.doskaTitle
+                      ? Icons.dashboard
+                      : Icons.calendar_month,
                   color: color,
                   size: 28,
                 ),
@@ -80,12 +83,7 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
               OutlinedButton.icon(
-                onPressed: () async {
-                  final url = Uri.parse(downloadUrl);
-                  if (await canLaunchUrl(url)) {
-                    await launchUrl(url);
-                  }
-                },
+                onPressed: () => LinkLauncher.launchUrlString(downloadUrl),
                 icon: const Icon(Icons.download, size: 18),
                 label: const Text('Скачать'),
                 style: OutlinedButton.styleFrom(

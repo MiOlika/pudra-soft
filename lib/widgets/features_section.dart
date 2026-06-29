@@ -1,43 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../utils/constants.dart';
+
 class FeaturesSection extends StatelessWidget {
   const FeaturesSection({super.key});
-
-  final List<Map<String, String>> features = const [
-    {
-      'icon': '🔒',
-      'title': 'Полная автономность',
-      'description':
-          'Работает без интернета. Все данные хранятся только на вашем компьютере.',
-    },
-    {
-      'icon': '⚡',
-      'title': 'Мгновенная установка',
-      'description':
-          'Установка занимает 1 минуту из одного файла без сложных настроек.',
-    },
-    {
-      'icon': '💰',
-      'title': 'Абсолютно бесплатно',
-      'description': 'Никаких подписок и скрытых платежей. Скачал и пользуйся.',
-    },
-    {
-      'icon': '🛡️',
-      'title': 'Полный контроль данных',
-      'description':
-          'Никаких облачных сервисов. Ваши данные под вашим контролем.',
-    },
-    {
-      'icon': '💻',
-      'title': 'Для Windows 10/11',
-      'description': 'Полная совместимость с современными версиями Windows.',
-    },
-    {
-      'icon': '📞',
-      'title': 'Бесплатная поддержка',
-      'description': 'Техподдержка через официальную группу ВКонтакте.',
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +35,8 @@ class FeaturesSection extends StatelessWidget {
             childAspectRatio: 1.1,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
-            children: features.map((feature) {
+            physics: const NeverScrollableScrollPhysics(),
+            children: AppConstants.features.map((feature) {
               return Card(
                 elevation: 0,
                 color: isDark ? Colors.grey[800] : Colors.white,

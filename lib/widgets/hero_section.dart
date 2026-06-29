@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import '../utils/constants.dart';
 
 class HeroSection extends StatelessWidget {
   const HeroSection({super.key});
@@ -50,17 +51,12 @@ class HeroSection extends StatelessWidget {
             alignment: WrapAlignment.center,
             children: [
               ElevatedButton.icon(
-                onPressed: () async {
-                  final url =
-                      Uri.parse('https://github.com/pudra-soft/doska/releases');
-                  if (await canLaunchUrl(url)) {
-                    await launchUrl(url);
-                  }
-                },
+                onPressed: () =>
+                    LinkLauncher.launchUrlString(AppConstants.doskaDownloadUrl),
                 icon: const Icon(Icons.download),
                 label: const Text('Скачать DoSka'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF6C63FF),
+                  backgroundColor: AppConstants.doskaColor,
                   foregroundColor: Colors.white,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
@@ -70,17 +66,12 @@ class HeroSection extends StatelessWidget {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () async {
-                  final url = Uri.parse(
-                      'https://github.com/pudra-soft/timefiller/releases');
-                  if (await canLaunchUrl(url)) {
-                    await launchUrl(url);
-                  }
-                },
+                onPressed: () => LinkLauncher.launchUrlString(
+                    AppConstants.timeFillerDownloadUrl),
                 icon: const Icon(Icons.download),
                 label: const Text('Скачать TimeFiller'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF00B894),
+                  backgroundColor: AppConstants.timeFillerColor,
                   foregroundColor: Colors.white,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
