@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../utils/constants.dart';
-
 class HeroSection extends StatelessWidget {
   const HeroSection({super.key});
 
@@ -82,39 +80,6 @@ class HeroSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 32),
-
-          // Кнопки быстрого скачивания
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            alignment: WrapAlignment.center,
-            children: AppConstants.allApps.map((app) {
-              return ElevatedButton.icon(
-                onPressed: () => LinkLauncher.launchUrlString(app.downloadUrl),
-                icon: Icon(
-                  Icons.download,
-                  size: isMobile ? 18 : 20,
-                ),
-                label: Text(
-                  isMobile ? 'Скачать ${app.title}' : 'Скачать ${app.title}',
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: app.primaryColor,
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 16 : 24,
-                      vertical: isMobile ? 12 : 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  textStyle: TextStyle(
-                    fontSize: isMobile ? 14 : null,
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-          const SizedBox(height: 24),
 
           // Информационная плашка
           Container(

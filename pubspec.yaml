@@ -14,6 +14,8 @@ dependencies:
   video_player: ^2.8.1  # Для видео
   chewie: ^1.7.1
   carousel_slider: ^4.2.1  # Для красивой карусели
+  flutter_launcher_icons: ^0.13.1
+#  flutter pub run flutter_launcher_icons
 
 dev_dependencies:
   flutter_test:
@@ -26,3 +28,11 @@ flutter:
     - assets/images/
     - assets/videos/
     - assets/screenshots/
+
+flutter_launcher_icons:
+  image_path: "assets/images/doska_logo.png" # путь к вашему логотипу (минимум 512x512)
+  web:
+    generate: true
+    image_path: "assets/images/doska_logo.png"
+    background_color: "#ffffff"
+    theme_color: "#0175c2"
