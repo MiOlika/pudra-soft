@@ -21,13 +21,34 @@ class HeroSection extends StatelessWidget {
                   const Color(0xFF16213E),
                 ]
               : [
-                  const Color(0xFF6C63FF).withValues(alpha: 0.1),
-                  const Color(0xFF00B894).withValues(alpha: 0.1),
+                  const Color(0xFF6C63FF).withOpacity(0.1),
+                  const Color(0xFF00B894).withOpacity(0.1),
                 ],
         ),
       ),
       child: Column(
         children: [
+          // Логотип компании
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: const Color(0xFF6C63FF),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Center(
+              child: Text(
+                'PS',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 32,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 24),
+
           Text(
             'Локальное ПО для\nпродуктивной работы',
             textAlign: TextAlign.center,
@@ -37,26 +58,30 @@ class HeroSection extends StatelessWidget {
                 ),
           ),
           const SizedBox(height: 16),
+
           Text(
-            'Бесплатные приложения для Windows, которые работают полностью автономно.\nВаши данные — только на вашем компьютере.',
+            'Бесплатные приложения для Windows, которые работают полностью автономно.\n'
+            'Ваши данные — только на вашем компьютере.',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: isDark ? Colors.grey[400] : Colors.grey[600],
+                  height: 1.5,
                 ),
           ),
           const SizedBox(height: 32),
+
+          // Кнопки быстрого скачивания всех приложений
           Wrap(
             spacing: 16,
             runSpacing: 16,
             alignment: WrapAlignment.center,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () =>
-                    LinkLauncher.launchUrlString(AppConstants.doskaDownloadUrl),
+            children: AppConstants.allApps.map((app) {
+              return ElevatedButton.icon(
+                onPressed: () => LinkLauncher.launchUrlString(app.downloadUrl),
                 icon: const Icon(Icons.download),
-                label: const Text('Скачать DoSka'),
+                label: Text('Скачать ${app.title}'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppConstants.doskaColor,
+                  backgroundColor: app.primaryColor,
                   foregroundColor: Colors.white,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
@@ -64,25 +89,12 @@ class HeroSection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-              ),
-              ElevatedButton.icon(
-                onPressed: () => LinkLauncher.launchUrlString(
-                    AppConstants.timeFillerDownloadUrl),
-                icon: const Icon(Icons.download),
-                label: const Text('Скачать TimeFiller'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppConstants.timeFillerColor,
-                  foregroundColor: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-            ],
+              );
+            }).toList(),
           ),
           const SizedBox(height: 24),
+
+          // Информационная плашка
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             decoration: BoxDecoration(
