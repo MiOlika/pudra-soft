@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pudra_soft/widgets/screenshot_gallery.dart';
 
 import '../models/app_model.dart';
 import '../utils/constants.dart';
+import 'chewie_video_player.dart';
 
 class AppDetailCard extends StatefulWidget {
   final AppModel app;
@@ -111,43 +113,9 @@ class _AppDetailCardState extends State<AppDetailCard> {
 
           // Видео демонстрация (если есть)
           if (app.videoPath != null && app.videoPath!.isNotEmpty) ...[
-            Container(
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Container(
-                      color: Colors.grey[900],
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.play_circle_fill,
-                              color: app.primaryColor,
-                              size: 64,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              'Видео-демонстрация',
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            ChewieVideoPlayer(
+              videoPath: app.videoPath!,
+              accentColor: app.primaryColor,
             ),
             const SizedBox(height: 24),
           ],
@@ -171,61 +139,10 @@ class _AppDetailCardState extends State<AppDetailCard> {
 
           // Скриншоты (карусель)
           if (app.screenshots.isNotEmpty) ...[
-            Text(
-              'Скриншоты',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
             const SizedBox(height: 12),
-            SizedBox(
-              height: 200,
-              child: Stack(
-                children: [
-                  PageView.builder(
-                    onPageChanged: (index) {
-                      setState(() {
-                        _currentScreenshotIndex = index;
-                      });
-                    },
-                    itemCount: app.screenshots.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.only(right: 8),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                            image: AssetImage(app.screenshots[index]),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  Positioned(
-                    bottom: 8,
-                    left: 0,
-                    right: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        app.screenshots.length,
-                        (index) => Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 4),
-                          width: 8,
-                          height: 8,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: _currentScreenshotIndex == index
-                                ? app.primaryColor
-                                : Colors.white.withOpacity(0.5),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            ScreenshotGallery(
+              screenshots: app.screenshots,
+              accentColor: app.primaryColor,
             ),
             const SizedBox(height: 24),
           ],
