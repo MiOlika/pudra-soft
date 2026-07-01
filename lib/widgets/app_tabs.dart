@@ -30,7 +30,8 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final colorScheme = Theme.of(context).colorScheme;
+    final bool isDesktop = MediaQuery.of(context).size.width >= 600;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -49,9 +50,8 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                   color: Colors.transparent,
                 ),
                 dividerColor: Colors.transparent,
-                labelColor: isDark ? Colors.white : Colors.black,
-                unselectedLabelColor:
-                    isDark ? Colors.grey[600] : Colors.grey[400],
+                labelColor: colorScheme.onSurface,
+                unselectedLabelColor: colorScheme.outline,
                 tabs: AppConstants.allApps.map((app) {
                   final isSelected =
                       _tabController.index == AppConstants.allApps.indexOf(app);
@@ -65,21 +65,20 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? (isDark ? Colors.grey[800] : Colors.white)
-                            : (isDark ? Colors.grey[900] : Colors.grey[100]),
+                            ? colorScheme.surfaceContainerHighest
+                            : colorScheme.surfaceContainerLow,
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
                           color: isSelected
                               ? app.primaryColor
-                              : (isDark
-                                  ? Colors.grey[700]!
-                                  : Colors.grey[300]!),
+                              : colorScheme.outlineVariant,
                           width: isSelected ? 2.5 : 1.5,
                         ),
                         boxShadow: isSelected
                             ? [
                                 BoxShadow(
-                                  color: app.primaryColor.withOpacity(0.3),
+                                  color:
+                                      app.primaryColor.withValues(alpha: 0.3),
                                   blurRadius: 16,
                                   offset: const Offset(0, 4),
                                   spreadRadius: 2,
@@ -87,9 +86,7 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                               ]
                             : [
                                 BoxShadow(
-                                  color: isDark
-                                      ? Colors.black.withOpacity(0.2)
-                                      : Colors.grey.withOpacity(0.1),
+                                  color: colorScheme.shadow,
                                   blurRadius: 8,
                                   offset: const Offset(0, 2),
                                 ),
@@ -103,7 +100,7 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? app.primaryColor.withOpacity(0.15)
+                                  ? app.primaryColor.withValues(alpha: 0.15)
                                   : Colors.transparent,
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -116,9 +113,7 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                                       Icons.apps,
                                       color: isSelected
                                           ? app.primaryColor
-                                          : (isDark
-                                              ? Colors.grey[400]
-                                              : Colors.grey[600]),
+                                          : colorScheme.outline,
                                       size: 40,
                                     ),
                                   )
@@ -126,9 +121,7 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                                     Icons.apps,
                                     color: isSelected
                                         ? app.primaryColor
-                                        : (isDark
-                                            ? Colors.grey[400]
-                                            : Colors.grey[600]),
+                                        : colorScheme.outline,
                                     size: 40,
                                   ),
                           ),
@@ -143,9 +136,7 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                                   : FontWeight.w500,
                               color: isSelected
                                   ? app.primaryColor
-                                  : (isDark
-                                      ? Colors.grey[400]
-                                      : Colors.grey[600]),
+                                  : colorScheme.outline,
                             ),
                             textAlign: TextAlign.center,
                             maxLines: 1,
@@ -160,10 +151,8 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                             ),
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? app.primaryColor.withOpacity(0.15)
-                                  : (isDark
-                                      ? Colors.grey[800]
-                                      : Colors.grey[200]),
+                                  ? app.primaryColor.withValues(alpha: 0.15)
+                                  : colorScheme.surfaceContainerHighest,
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
@@ -172,13 +161,35 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                                 fontSize: 9,
                                 color: isSelected
                                     ? app.primaryColor
-                                    : (isDark
-                                        ? Colors.grey[500]
-                                        : Colors.grey[500]),
+                                    : colorScheme.outline,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
+                          if (isSelected) ...[
+                            const SizedBox(height: 5),
+                            ElevatedButton.icon(
+                              onPressed: () =>
+                                  LinkLauncher.launchUrlString(app.downloadUrl),
+                              icon: const Icon(
+                                Icons.download,
+                                // size: 20,
+                              ),
+                              label: const Text(
+                                'Скачать',
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    app.primaryColor.withValues(alpha: 0.3),
+                                foregroundColor: colorScheme.onPrimary,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 5),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                            )
+                          ]
                         ],
                       ),
                     ),
@@ -189,48 +200,18 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
           ),
         ),
 
-        const SizedBox(height: 16),
-
-        // Кнопка "Скачать"
-        Wrap(
-          spacing: 16,
-          runSpacing: 16,
-          alignment: WrapAlignment.center,
-          children: AppConstants.allApps.map((app) {
-            return ElevatedButton.icon(
-              onPressed: () => LinkLauncher.launchUrlString(app.downloadUrl),
-              icon: Icon(
-                Icons.download,
-                size: 20,
-              ),
-              label: Text(
-                'Скачать ${app.title}',
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: app.primaryColor,
-                foregroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-
         const SizedBox(height: 24),
 
         // Контент с деталями приложения
         Container(
-          height: 500,
+          height: isDesktop ? 1000 : 500,
           margin: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
+            color: colorScheme.surfaceContainer,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: isDark
-                    ? Colors.black.withOpacity(0.2)
-                    : Colors.grey.withOpacity(0.1),
+                color: colorScheme.shadow,
                 blurRadius: 10,
                 offset: const Offset(0, 2),
               ),

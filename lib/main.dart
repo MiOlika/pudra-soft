@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:pudra_soft/utils/app_theme.dart';
 
 import 'screens/home_screen.dart';
 
@@ -14,22 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Pudra Soft',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF6C63FF),
-          brightness: Brightness.light,
-        ),
-        fontFamily: GoogleFonts.inter().fontFamily,
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF6C63FF),
-          brightness: Brightness.dark,
-        ),
-        fontFamily: GoogleFonts.inter().fontFamily,
-      ),
+      theme: AppTheme.darkTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.dark,
+      // или ThemeMode.system для автоопределения
       home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
     );

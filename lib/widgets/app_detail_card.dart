@@ -20,21 +20,21 @@ class _AppDetailCardState extends State<AppDetailCard> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final colorScheme = Theme.of(context).colorScheme;
     final app = widget.app;
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24),
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: isDark ? Colors.grey[850] : Colors.white,
+        color: colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isDark ? Colors.grey[800]! : Colors.grey[200]!,
+          color: colorScheme.outlineVariant,
         ),
         boxShadow: [
           BoxShadow(
-            color: app.primaryColor.withOpacity(0.1),
+            color: app.primaryColor.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -50,7 +50,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
                 width: 64,
                 height: 64,
                 decoration: BoxDecoration(
-                  color: app.primaryColor.withOpacity(0.15),
+                  color: app.primaryColor.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: ClipRRect(
@@ -75,6 +75,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
                       style:
                           Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
+                                color: colorScheme.onSurface,
                               ),
                     ),
                     Text(
@@ -87,7 +88,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
                     Text(
                       'Версия ${app.version} для Windows',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: isDark ? Colors.grey[400] : Colors.grey[600],
+                            color: colorScheme.outline,
                           ),
                     ),
                   ],
@@ -125,13 +126,14 @@ class _AppDetailCardState extends State<AppDetailCard> {
             'Описание',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
+                  color: colorScheme.onSurface,
                 ),
           ),
           const SizedBox(height: 8),
           Text(
             app.detailedDescription,
             style: TextStyle(
-              color: isDark ? Colors.grey[300] : Colors.grey[700],
+              color: colorScheme.onSurfaceVariant,
               height: 1.6,
             ),
           ),
@@ -152,6 +154,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
             'Ключевые возможности',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
+                  color: colorScheme.onSurface,
                 ),
           ),
           const SizedBox(height: 12),
@@ -163,7 +166,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                 decoration: BoxDecoration(
-                  color: app.primaryColor.withOpacity(0.1),
+                  color: app.primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -184,6 +187,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
             'Преимущества',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
+                  color: colorScheme.onSurface,
                 ),
           ),
           const SizedBox(height: 12),
@@ -202,7 +206,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
                     child: Text(
                       benefit,
                       style: TextStyle(
-                        color: isDark ? Colors.grey[300] : Colors.grey[700],
+                        color: colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ),
@@ -217,10 +221,10 @@ class _AppDetailCardState extends State<AppDetailCard> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: isDark ? Colors.grey[800] : Colors.grey[50],
+                color: colorScheme.surfaceContainerLow,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: isDark ? Colors.grey[700]! : Colors.grey[200]!,
+                  color: colorScheme.outlineVariant,
                 ),
               ),
               child: Column(
@@ -235,10 +239,11 @@ class _AppDetailCardState extends State<AppDetailCard> {
                       ),
                       const SizedBox(width: 12),
                       Text(
-                        'Часто задаваемые вопросы о ${app.title}',
+                        'Часто задаваемые вопросы',
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.bold,
+                                  color: colorScheme.onSurface,
                                 ),
                       ),
                     ],
@@ -252,10 +257,10 @@ class _AppDetailCardState extends State<AppDetailCard> {
                     return Container(
                       margin: const EdgeInsets.only(bottom: 8),
                       decoration: BoxDecoration(
-                        color: isDark ? Colors.grey[850] : Colors.white,
+                        color: colorScheme.surface,
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: isDark ? Colors.grey[700]! : Colors.grey[200]!,
+                          color: colorScheme.outlineVariant,
                         ),
                       ),
                       child: Theme(
@@ -276,9 +281,10 @@ class _AppDetailCardState extends State<AppDetailCard> {
                               horizontal: 16, vertical: 4),
                           title: Text(
                             faq.question,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 15,
+                              color: colorScheme.onSurface,
                             ),
                           ),
                           trailing: Icon(
@@ -293,9 +299,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
                               child: Text(
                                 faq.answer,
                                 style: TextStyle(
-                                  color: isDark
-                                      ? Colors.grey[400]
-                                      : Colors.grey[600],
+                                  color: colorScheme.onSurfaceVariant,
                                   height: 1.5,
                                 ),
                               ),
@@ -320,7 +324,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
               label: const Text('Скачать бесплатно'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: app.primaryColor,
-                foregroundColor: Colors.white,
+                foregroundColor: colorScheme.onPrimary,
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),

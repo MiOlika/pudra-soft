@@ -12,7 +12,7 @@ class Footer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
       decoration: BoxDecoration(
-        color: isDark ? Colors.grey[900] : Colors.grey[900],
+        color: Theme.of(context).colorScheme.surfaceDim,
       ),
       child: Column(
         children: [

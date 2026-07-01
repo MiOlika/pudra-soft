@@ -27,7 +27,6 @@ class FeaturesSection extends StatelessWidget {
         horizontal: isMobile ? 16 : 24,
         vertical: isMobile ? 32 : 40,
       ),
-      color: isDark ? Colors.grey[850] : Colors.grey[50],
       child: Column(
         children: [
           Text(
@@ -61,7 +60,6 @@ class FeaturesSection extends StatelessWidget {
                 width: getCardWidth(),
                 child: Card(
                   elevation: 0,
-                  color: isDark ? Colors.grey[800] : Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     side: BorderSide(

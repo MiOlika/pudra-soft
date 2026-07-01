@@ -65,7 +65,7 @@ class _ScreenshotGalleryState extends State<ScreenshotGallery> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: widget.accentColor.withOpacity(0.1),
+                color: widget.accentColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
@@ -160,7 +160,7 @@ class _ScreenshotGalleryState extends State<ScreenshotGallery> {
                           borderRadius: BorderRadius.circular(4),
                           color: _currentIndex == index
                               ? widget.accentColor
-                              : Colors.white.withOpacity(0.5),
+                              : Colors.white.withValues(alpha: 0.5),
                         ),
                       ),
                     ),
@@ -282,7 +282,7 @@ class _ScreenshotGalleryState extends State<ScreenshotGallery> {
         width: 40,
         height: 40,
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.black.withValues(alpha: 0.5),
           shape: BoxShape.circle,
         ),
         child: Icon(

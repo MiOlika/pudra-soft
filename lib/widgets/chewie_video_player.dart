@@ -57,7 +57,7 @@ class _ChewieVideoPlayerState extends State<ChewieVideoPlayer> {
         _isInitialized = true;
       });
     } catch (e) {
-      print('Ошибка инициализации видео: $e');
+      debugPrint('Ошибка инициализации видео: $e');
     }
   }
 

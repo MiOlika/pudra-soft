@@ -7,17 +7,15 @@ class AppHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: isDark ? Colors.grey[800]! : Colors.grey[200]!,
-          ),
-        ),
-      ),
+      // decoration: const BoxDecoration(
+      //   border: Border(
+      //     bottom: BorderSide(
+      //       // color: AppConstants.backgroundColor,
+      //     ),
+      //   ),
+      // ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -54,18 +52,10 @@ class AppHeader extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.support_agent),
+                color: Colors.grey,
                 onPressed: () =>
                     LinkLauncher.launchUrlString(AppConstants.vkUrl),
                 tooltip: 'Поддержка ВКонтакте',
-              ),
-              IconButton(
-                icon: Icon(
-                  isDark ? Icons.light_mode : Icons.dark_mode,
-                ),
-                onPressed: () {
-                  // Переключение темы будет добавлено позже
-                },
-                tooltip: 'Сменить тему',
               ),
             ],
           ),

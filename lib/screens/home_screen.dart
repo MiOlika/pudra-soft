@@ -11,14 +11,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const AppHeader(),
-            const HeroSection(),
-            const SizedBox(height: 40),
-            const Padding(
+            AppHeader(),
+            HeroSection(),
+            SizedBox(height: 40),
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 24),
               child: Text(
                 'Наши продукты',
@@ -28,12 +28,12 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            const AppTabs(),
-            const SizedBox(height: 40),
-            const FeaturesSection(),
-            const SizedBox(height: 40),
-            const Footer(),
+            SizedBox(height: 20),
+            AppTabs(),
+            SizedBox(height: 40),
+            FeaturesSection(),
+            SizedBox(height: 40),
+            Footer(),
           ],
         ),
       ),
