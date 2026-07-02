@@ -9,33 +9,17 @@ class AppHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      // decoration: const BoxDecoration(
-      //   border: Border(
-      //     bottom: BorderSide(
-      //       // color: AppConstants.backgroundColor,
-      //     ),
-      //   ),
-      // ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF6C63FF),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Center(
-                  child: Text(
-                    'PS',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+              SizedBox(
+                width: 35,
+                height: 35,
+                child: ClipRRect(
+                  child: Image.asset(
+                    'assets/images/pudra_soft_logo.png',
                   ),
                 ),
               ),

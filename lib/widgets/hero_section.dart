@@ -30,9 +30,9 @@ class HeroSection extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              colorScheme.surface.withValues(alpha: 0.5),
-              colorScheme.surfaceBright.withValues(alpha: 0.9),
-              colorScheme.surface.withValues(alpha: 0.5),
+              colorScheme.surface.withValues(alpha: 0.4),
+              colorScheme.surfaceBright.withValues(alpha: 0.7),
+              colorScheme.surface.withValues(alpha: 0.4),
             ],
           ),
         ),
@@ -40,21 +40,12 @@ class HeroSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Логотип компании
-            Container(
+            SizedBox(
               width: isMobile ? 60 : 80,
               height: isMobile ? 60 : 80,
-              decoration: BoxDecoration(
-                color: colorScheme.primary,
-                borderRadius: BorderRadius.circular(isMobile ? 16 : 20),
-              ),
-              child: Center(
-                child: Text(
-                  'PS',
-                  style: TextStyle(
-                    color: colorScheme.onPrimary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: isMobile ? 24 : 32,
-                  ),
+              child: ClipRRect(
+                child: Image.asset(
+                  'assets/images/pudra_soft_logo.png',
                 ),
               ),
             ),
