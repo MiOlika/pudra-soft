@@ -58,7 +58,7 @@ DoSka — это персональный конструктор проекто�
           'https://github.com/MiOlika/DoSka/releases/download/0.1.6.0/DoSka_0.1.6.0.msi',
       primaryColor: Color(0xFFBF7DC4),
       logoPath: 'assets/images/doska_logo.png',
-      videoPath: 'assets/videos/doska_demo.mp4',
+      videoPath: '456239019',
       screenshots: [
         'assets/screenshots/doska_1.png',
         'assets/screenshots/doska_2.png',
@@ -107,7 +107,7 @@ DoSka — это персональный конструктор проекто�
   factory AppModel.timeFiller() {
     return const AppModel(
       id: 'timefiller',
-      title: 'TimeFiller',
+      title: 'Time Filler',
       subtitle: 'Планировщик для команд',
       version: '0.3.3.0',
       description: 'Локальный планировщик для небольших команд',
@@ -123,7 +123,7 @@ TimeFiller — это локальный планировщик для Windows, 
           'https://github.com/MiOlika/Time-Filler/releases/download/0.3.3.0/Time_Filler_0.3.3.0.msi',
       primaryColor: Color(0xFF00B894),
       logoPath: 'assets/images/timefiller_logo.png',
-      videoPath: 'assets/videos/timefiller_demo.mp4',
+      videoPath: '456239017',
       screenshots: [
         'assets/screenshots/timefiller_1.png',
         'assets/screenshots/timefiller_2.png',

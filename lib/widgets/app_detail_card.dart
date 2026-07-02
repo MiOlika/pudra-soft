@@ -3,7 +3,7 @@ import 'package:pudra_soft/widgets/screenshot_gallery.dart';
 
 import '../models/app_model.dart';
 import '../utils/constants.dart';
-import 'chewie_video_player.dart';
+import 'vk_video_player.dart';
 
 class AppDetailCard extends StatefulWidget {
   final AppModel app;
@@ -22,9 +22,10 @@ class _AppDetailCardState extends State<AppDetailCard> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final app = widget.app;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLargeScreen = screenWidth > 800;
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 24),
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainer,
@@ -32,13 +33,6 @@ class _AppDetailCardState extends State<AppDetailCard> {
         border: Border.all(
           color: colorScheme.outlineVariant,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: app.primaryColor.withValues(alpha: 0.1),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,12 +106,14 @@ class _AppDetailCardState extends State<AppDetailCard> {
           ),
           const SizedBox(height: 24),
 
-          // Видео демонстрация (если есть)
+          // Видео демонстрация (если есть) - с ограничением ширины
           if (app.videoPath != null && app.videoPath!.isNotEmpty) ...[
-            ChewieVideoPlayer(
-              videoPath: app.videoPath!,
+            Center(
+                child: VkVideoPlayer(
               accentColor: app.primaryColor,
-            ),
+              videoOwnerId: '-158779686',
+              videoId: app.videoPath!,
+            )),
             const SizedBox(height: 24),
           ],
 
@@ -139,12 +135,19 @@ class _AppDetailCardState extends State<AppDetailCard> {
           ),
           const SizedBox(height: 24),
 
-          // Скриншоты (карусель)
+          // Скриншоты (карусель) - с ограничением ширины
           if (app.screenshots.isNotEmpty) ...[
             const SizedBox(height: 12),
-            ScreenshotGallery(
-              screenshots: app.screenshots,
-              accentColor: app.primaryColor,
+            Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: isLargeScreen ? 800 : double.infinity,
+                ),
+                child: ScreenshotGallery(
+                  screenshots: app.screenshots,
+                  accentColor: app.primaryColor,
+                ),
+              ),
             ),
             const SizedBox(height: 24),
           ],

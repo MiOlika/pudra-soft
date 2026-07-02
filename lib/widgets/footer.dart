@@ -19,21 +19,12 @@ class Footer extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 32,
-                height: 32,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF6C63FF),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Center(
-                  child: Text(
-                    'PS',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
+              SizedBox(
+                width: 35,
+                height: 35,
+                child: ClipRRect(
+                  child: Image.asset(
+                    'assets/images/pudra_soft_logo.png',
                   ),
                 ),
               ),

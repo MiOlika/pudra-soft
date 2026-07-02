@@ -12,7 +12,7 @@ dependencies:
   url_launcher: ^6.2.5
   google_fonts: ^6.1.0
   video_player: ^2.8.1  # Для видео
-  chewie: ^1.7.1
+  vk_video: ^1.0.2
   carousel_slider: ^4.2.1  # Для красивой карусели
   flutter_launcher_icons: ^0.13.1
 #  flutter pub run flutter_launcher_icons
@@ -26,7 +26,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/videos/
     - assets/screenshots/
 
 flutter_launcher_icons:
