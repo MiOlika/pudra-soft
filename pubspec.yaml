@@ -29,9 +29,9 @@ flutter:
     - assets/screenshots/
 
 flutter_launcher_icons:
-  image_path: "assets/images/doska_logo.png" # путь к вашему логотипу (минимум 512x512)
+  image_path: "assets/images/pudra_soft_logo.png" # путь к вашему логотипу (минимум 512x512)
   web:
     generate: true
-    image_path: "assets/images/doska_logo.png"
+    image_path: "assets/images/pudra_soft_logo.png"
     background_color: "#ffffff"
     theme_color: "#0175c2"

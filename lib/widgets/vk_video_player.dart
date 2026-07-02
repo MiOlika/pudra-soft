@@ -47,9 +47,8 @@ class _VkVideoPlayerState extends State<VkVideoPlayer> {
           videoOId: widget.videoOwnerId,
           videoId: widget.videoId,
           isAutoPlay: false,
-          isIframeAllowFullscreen: true,
           // полноэкранный режим
-          videoResolutionEnum: VideoResolutionEnum.p480,
+          isIframeAllowFullscreen: true,
           backgroundColor: Colors.black,
           initialWidget: Container(
             color: Colors.grey[900],
