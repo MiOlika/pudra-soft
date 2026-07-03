@@ -36,7 +36,7 @@ class AppHeader extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.support_agent),
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.outline,
                 onPressed: () =>
                     LinkLauncher.launchUrlString(AppConstants.vkUrl),
                 tooltip: 'Поддержка ВКонтакте',

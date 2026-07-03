@@ -48,7 +48,7 @@ class AppTheme {
 
       // Поверхности для диммера
       surfaceDim: Color(0xFF1A1A30),
-      surfaceBright: Color(0xFF4A4A70),
+      surfaceBright: Color(0xFF615883),
 
       // Затемнение
       scrim: Color(0x80000000),

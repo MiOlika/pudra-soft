@@ -31,9 +31,13 @@ class HeroSection extends StatelessWidget {
             end: Alignment.bottomRight,
             colors: [
               colorScheme.surface.withValues(alpha: 0.4),
-              colorScheme.surfaceBright.withValues(alpha: 0.7),
+              colorScheme.surfaceBright.withValues(alpha: 0.6),
               colorScheme.surface.withValues(alpha: 0.4),
             ],
+          ),
+          border: Border.all(
+            color: colorScheme.primary.withValues(alpha: 0.05),
+            width: 3,
           ),
         ),
         child: Column(

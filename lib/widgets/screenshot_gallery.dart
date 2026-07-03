@@ -56,7 +56,7 @@ class _ScreenshotGalleryState extends State<ScreenshotGallery> {
         Row(
           children: [
             Text(
-              'Скриншоты',
+              'Галерея',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

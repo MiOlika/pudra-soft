@@ -7,7 +7,7 @@ class FeaturesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final colorScheme = Theme.of(context).colorScheme;
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
 
@@ -18,13 +18,13 @@ class FeaturesSection extends StatelessWidget {
         return (screenWidth - 48) / 2;
       }
       // На десктопе: 3 колонки
-      return (screenWidth - 72) / 3;
+      return (screenWidth - 48) / 3;
     }
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 16 : 24,
+        horizontal: 16,
         vertical: isMobile ? 32 : 40,
       ),
       child: Column(
@@ -44,7 +44,7 @@ class FeaturesSection extends StatelessWidget {
                 : 'Приложения от Pudra Soft созданы для продуктивной работы\nс полной приватностью ваших данных',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: isDark ? Colors.grey[400] : Colors.grey[600],
+                  color: colorScheme.outline,
                   fontSize: isMobile ? 14 : null,
                 ),
           ),
@@ -58,25 +58,22 @@ class FeaturesSection extends StatelessWidget {
             children: AppConstants.features.map((feature) {
               return SizedBox(
                 width: getCardWidth(),
+                height: 200,
                 child: Card(
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     side: BorderSide(
-                      color: isDark ? Colors.grey[700]! : Colors.grey[200]!,
+                      color: colorScheme.outline,
                     ),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(isMobile ? 12 : 16),
+                    padding: EdgeInsets.all(12),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          feature['icon']!,
-                          style: TextStyle(
-                            fontSize: isMobile ? 28 : 32,
-                          ),
-                        ),
+                        Icon(feature['icon'],
+                            color: colorScheme.outline, size: 35),
                         SizedBox(height: isMobile ? 6 : 8),
                         Text(
                           feature['title']!,
@@ -91,7 +88,7 @@ class FeaturesSection extends StatelessWidget {
                           feature['description']!,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: isDark ? Colors.grey[400] : Colors.grey[600],
+                            color: colorScheme.outline,
                             fontSize: isMobile ? 12 : 13,
                             height: 1.3,
                           ),

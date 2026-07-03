@@ -38,7 +38,7 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
       children: [
         // Квадратные карточки-табы по центру
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           child: AnimatedBuilder(
             animation: _tabController,
             builder: (context, child) {
@@ -125,7 +125,7 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                                     size: 40,
                                   ),
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 5),
                           // Название приложения
                           Text(
                             app.title,
@@ -167,28 +167,28 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                             ),
                           ),
                           if (isSelected) ...[
-                            const SizedBox(height: 5),
+                            const SizedBox(height: 6),
                             ElevatedButton.icon(
                               onPressed: () =>
                                   LinkLauncher.launchUrlString(app.downloadUrl),
                               icon: const Icon(
                                 Icons.download,
-                                // size: 20,
+                                size: 14,
                               ),
-                              label: const Text(
-                                'Скачать',
-                              ),
+                              label: const Text('Скачать',
+                                  style: TextStyle(fontSize: 14)),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
                                     app.primaryColor.withValues(alpha: 0.3),
                                 foregroundColor: colorScheme.onPrimary,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 5),
+                                    horizontal: 16, vertical: 3),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                            )
+                            ),
+                            const SizedBox(height: 2),
                           ]
                         ],
                       ),

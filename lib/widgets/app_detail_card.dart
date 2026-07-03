@@ -113,6 +113,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
               accentColor: app.primaryColor,
               videoOwnerId: '-158779686',
               videoId: app.videoPath!,
+              coverPath: app.screenshots[0],
             )),
             const SizedBox(height: 24),
           ],

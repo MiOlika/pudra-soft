@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vk_video/vk_video.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class VkVideoPlayer extends StatefulWidget {
+class VkVideoPlayer extends StatelessWidget {
   final String videoOwnerId;
   final String videoId;
+  final String coverPath;
   final Color accentColor;
 
   const VkVideoPlayer({
@@ -11,70 +12,71 @@ class VkVideoPlayer extends StatefulWidget {
     required this.videoOwnerId,
     required this.videoId,
     required this.accentColor,
+    required this.coverPath,
   });
 
-  @override
-  State<VkVideoPlayer> createState() => _VkVideoPlayerState();
-}
-
-class _VkVideoPlayerState extends State<VkVideoPlayer> {
-  late VKVideoController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = VKVideoController();
+  String get _videoUrl {
+    final ownerId =
+        videoOwnerId.startsWith('-') ? videoOwnerId : '-$videoOwnerId';
+    return 'https://vkvideo.ru/video_ext.php?oid=$ownerId&id=$videoId&hd=2';
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  Future<void> _openVideo() async {
+    final Uri url = Uri.parse(_videoUrl);
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Не удалось открыть ссылку: $_videoUrl');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 600;
-    final double width = screenWidth > 1000 ? 1000 : screenWidth;
-    return SizedBox(
-      width: width,
-      height: width / 16 * 9,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: VKVideo(
-          controller: _controller,
-          videoOId: widget.videoOwnerId,
-          videoId: widget.videoId,
-          isAutoPlay: false,
-          // полноэкранный режим
-          isIframeAllowFullscreen: true,
-          backgroundColor: Colors.black,
-          initialWidget: Container(
-            color: Colors.grey[900],
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: CircularProgressIndicator(
-                      color: widget.accentColor,
-                      strokeWidth: 3,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'Загрузка видео...',
-                    style: TextStyle(
-                      color: Colors.grey[400],
-                      fontSize: isMobile ? 12 : 14,
-                    ),
-                  ),
-                ],
-              ),
+    final width = MediaQuery.of(context).size.width > 1000
+        ? 1000.0
+        : MediaQuery.of(context).size.width;
+
+    return Center(
+      child: GestureDetector(
+        onTap: _openVideo,
+        child: Container(
+          width: width,
+          height: width * 9 / 16,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(12),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage(coverPath),
             ),
+          ),
+          child: Stack(
+            children: [
+              // затемнение
+              Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onPrimary
+                      .withValues(alpha: 0.6),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+
+              // Кнопка проигрывания
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    color: accentColor.withValues(alpha: 0.9),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.play_arrow,
+                    size: 40,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

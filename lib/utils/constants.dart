@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/app_model.dart';
@@ -33,37 +34,38 @@ class AppConstants {
   static const String githubUrl = 'https://github.com/pudra-soft';
 
   // Фичи для секции "Почему выбирают нас" (общие для всех)
-  static const List<Map<String, String>> features = [
+
+  static final List<Map<String, dynamic>> features = [
     {
-      'icon': '🔒',
+      'icon': Icons.lock_outline, // 🔒
       'title': 'Полная автономность',
       'description':
           'Работает без интернета. Все данные хранятся только на вашем компьютере.',
     },
-    {
-      'icon': '⚡',
+    const {
+      'icon': Icons.flash_on, // ⚡
       'title': 'Мгновенная установка',
       'description':
           'Установка занимает 1 минуту из одного файла без сложных настроек.',
     },
-    {
-      'icon': '💰',
+    const {
+      'icon': Icons.money_off, // 💰 (или Icons.attach_money)
       'title': 'Абсолютно бесплатно',
       'description': 'Никаких подписок и скрытых платежей. Скачал и пользуйся.',
     },
-    {
-      'icon': '🛡️',
+    const {
+      'icon': Icons.shield_outlined, // 🛡️
       'title': 'Полный контроль данных',
       'description':
           'Никаких облачных сервисов. Ваши данные под вашим контролем.',
     },
-    {
-      'icon': '💻',
+    const {
+      'icon': Icons.computer, // 💻
       'title': 'Для Windows 10/11',
       'description': 'Полная совместимость с современными версиями Windows.',
     },
-    {
-      'icon': '📞',
+    const {
+      'icon': Icons.support_agent, // 📞 (или Icons.contact_support)
       'title': 'Бесплатная поддержка',
       'description': 'Техподдержка через официальную группу ВКонтакте.',
     },
