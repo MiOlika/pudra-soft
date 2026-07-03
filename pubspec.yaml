@@ -9,13 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cupertino_icons: ^1.0.6
   url_launcher: ^6.2.5
   google_fonts: ^6.1.0
   video_player: ^2.8.1  # Для видео
-  vk_video: ^1.0.2
   carousel_slider: ^4.2.1  # Для красивой карусели
   flutter_launcher_icons: ^0.13.1
-#  flutter pub run flutter_launcher_icons
 
 dev_dependencies:
   flutter_test:
