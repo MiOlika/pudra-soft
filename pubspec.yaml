@@ -1,5 +1,5 @@
 name: pudra_soft
-description: "Сайт-визитка команды разработчиков Pudra Soft"
+description: "Программное обеспечение"
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -15,6 +15,7 @@ dependencies:
   video_player: ^2.8.1  # Для видео
   carousel_slider: ^4.2.1  # Для красивой карусели
   flutter_launcher_icons: ^0.13.1
+#  flutter pub run flutter_launcher_icons
 
 dev_dependencies:
   flutter_test:
