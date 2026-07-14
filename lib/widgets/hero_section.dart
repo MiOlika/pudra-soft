@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import 'border_painter.dart';
@@ -18,7 +20,7 @@ class _HeroSectionState extends State<HeroSection>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 10),
+      duration: const Duration(seconds: 7),
       vsync: this,
     )..repeat();
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
@@ -76,14 +78,29 @@ class _HeroSectionState extends State<HeroSection>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Логотип компании
-                  SizedBox(
-                    width: isMobile ? 60 : 80,
-                    height: isMobile ? 60 : 80,
-                    child: ClipRRect(
-                      child: Image.asset(
-                        'assets/images/pudra_soft_logo.png',
-                      ),
-                    ),
+                  AnimatedBuilder(
+                    animation: _controller,
+                    builder: (context, child) {
+                      // Синусоида от -1 до 1, преобразуем в 0-1
+                      final sinValue =
+                          math.sin(_controller.value * 2 * math.pi);
+                      // Масштаб: 1.0 +/- 0.05 (от 0.95 до 1.05)
+                      final scale = 1.0 + 0.05 * sinValue;
+
+                      return Transform.scale(
+                        scale: scale,
+                        child: SizedBox(
+                          width: isMobile ? 60 : 80,
+                          height: isMobile ? 60 : 80,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.asset(
+                              'assets/images/pudra_soft_logo.png',
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 24),
 
