@@ -1,7 +1,34 @@
 import 'package:flutter/material.dart';
 
-class HeroSection extends StatelessWidget {
+import 'border_painter.dart';
+
+class HeroSection extends StatefulWidget {
   const HeroSection({super.key});
+
+  @override
+  State<HeroSection> createState() => _HeroSectionState();
+}
+
+class _HeroSectionState extends State<HeroSection>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 10),
+      vsync: this,
+    )..repeat();
+    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -9,129 +36,141 @@ class HeroSection extends StatelessWidget {
     final isMobile = screenWidth < 600;
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Container(
-      width: screenWidth,
-      padding: EdgeInsets.symmetric(
-          horizontal: isMobile ? 16 : 24, vertical: isMobile ? 40 : 60),
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/banner.jpg'),
-          fit: BoxFit.cover,
-          alignment: Alignment.center,
-        ),
-      ),
-      child: Container(
-        width: screenWidth,
-        padding: EdgeInsets.symmetric(
-            horizontal: isMobile ? 16 : 24, vertical: isMobile ? 40 : 60),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              colorScheme.surface.withValues(alpha: 0.4),
-              colorScheme.surfaceBright.withValues(alpha: 0.6),
-              colorScheme.surface.withValues(alpha: 0.4),
-            ],
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Container(
+          width: screenWidth,
+          padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? 16 : 24,
+            vertical: isMobile ? 40 : 60,
           ),
-          border: Border.all(
-            color: colorScheme.primary.withValues(alpha: 0.05),
-            width: 3,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/banner.jpg'),
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Логотип компании
-            SizedBox(
-              width: isMobile ? 60 : 80,
-              height: isMobile ? 60 : 80,
-              child: ClipRRect(
-                child: Image.asset(
-                  'assets/images/pudra_soft_logo.png',
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-
-            Text(
-              isMobile
-                  ? 'Локальное ПО для\nпродуктивной работы'
-                  : 'Локальное ПО для\nпродуктивной работы',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    color: colorScheme.onSurface,
-                    fontSize: isMobile ? 28 : null,
-                  ),
-            ),
-            const SizedBox(height: 16),
-            Container(
+          child: CustomPaint(
+            painter: BorderPainter(_animation.value, colorScheme),
+            child: Container(
               width: screenWidth,
-              height: 1.5,
+              padding: EdgeInsets.symmetric(
+                horizontal: isMobile ? 16 : 24,
+                vertical: isMobile ? 40 : 60,
+              ),
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
                 gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                   colors: [
-                    Colors.transparent, // Слева прозрачный
-                    colorScheme.primary, // В центре цвет primary
-                    Colors.transparent, // Справа прозрачный
+                    colorScheme.surface.withValues(alpha: 0.4),
+                    colorScheme.surfaceBright.withValues(alpha: 0.6),
+                    colorScheme.surface.withValues(alpha: 0.4),
                   ],
-                  stops: const [0.0, 0.5, 1.0], // Равномерное распределение
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: isMobile ? 0 : 40),
-              child: Text(
-                isMobile
-                    ? 'Бесплатные приложения для Windows,\nработающие полностью автономно'
-                    : 'Бесплатные приложения для Windows, которые работают полностью автономно.\nВаши данные — только на вашем компьютере.',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                      height: 1.5,
-                      fontSize: isMobile ? 16 : null,
-                    ),
-              ),
-            ),
-            const SizedBox(height: 32),
-
-            // Информационная плашка
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: isMobile ? 16 : 20, vertical: isMobile ? 10 : 12),
-              decoration: BoxDecoration(
-                color: colorScheme.primary.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.info_outline,
-                    color: colorScheme.onSurface,
-                    size: isMobile ? 16 : 20,
+                  // Логотип компании
+                  SizedBox(
+                    width: isMobile ? 60 : 80,
+                    height: isMobile ? 60 : 80,
+                    child: ClipRRect(
+                      child: Image.asset(
+                        'assets/images/pudra_soft_logo.png',
+                      ),
+                    ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(height: 24),
+
                   Text(
                     isMobile
-                        ? 'Бесплатно • Без подписки'
-                        : 'Бесплатно • Без подписки • Полная автономность',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        ? 'Локальное ПО для\nпродуктивной работы'
+                        : 'Локальное ПО для\nпродуктивной работы',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           color: colorScheme.onSurface,
-                          fontSize: isMobile ? 12 : null,
+                          fontSize: isMobile ? 28 : null,
                         ),
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    width: screenWidth,
+                    height: 1.5,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          Colors.transparent,
+                          colorScheme.primary,
+                          Colors.transparent,
+                        ],
+                        stops: const [0.0, 0.5, 1.0],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: isMobile ? 0 : 40),
+                    child: Text(
+                      isMobile
+                          ? 'Бесплатные приложения для Windows,\nработающие полностью автономно'
+                          : 'Бесплатные приложения для Windows, которые работают полностью автономно.\nВаши данные — только на вашем компьютере.',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: colorScheme.onSurfaceVariant,
+                            height: 1.5,
+                            fontSize: isMobile ? 16 : null,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Информационная плашка
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 16 : 20,
+                      vertical: isMobile ? 10 : 12,
+                    ),
+                    decoration: BoxDecoration(
+                      color: colorScheme.primary.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.info_outline,
+                          color: colorScheme.onSurface,
+                          size: isMobile ? 16 : 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          isMobile
+                              ? 'Бесплатно • Без подписки'
+                              : 'Бесплатно • Без подписки • Полная автономность',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: colorScheme.onSurface,
+                                    fontSize: isMobile ? 12 : null,
+                                  ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
