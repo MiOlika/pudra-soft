@@ -34,8 +34,8 @@ class AppTheme {
       // Самый темный фон
 
       // Контуры - мягкие и ненавязчивые
-      outline: Color(0xFF8A8AB0),
-      outlineVariant: Color(0xFF55557A),
+      outline: Color(0xFFAA98C4),
+      outlineVariant: Color(0xFF72699B),
 
       // Тени и инверсные поверхности
       shadow: Color(0x33000000),
@@ -47,7 +47,7 @@ class AppTheme {
       onTertiary: Color(0xFF1A1A2E),
 
       // Поверхности для диммера
-      surfaceDim: Color(0xFF1A1A30),
+      surfaceDim: Color(0xFF3D3659),
       surfaceBright: Color(0xFF615883),
 
       // Затемнение

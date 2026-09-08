@@ -41,7 +41,7 @@ class AppModel {
       id: 'doska',
       title: 'DoSka',
       subtitle: 'Конструктор проектов',
-      version: '0.1.6.0',
+      version: '1.0.0.0',
       description: 'Персональный конструктор проектов для Windows',
       detailedDescription: '''
 DoSka — это персональный конструктор проектов для Windows. Простое и мощное приложение 
@@ -55,7 +55,7 @@ DoSka — это персональный конструктор проекто�
 а также декомпозировать задачи любого уровня сложности.
 ''',
       downloadUrl:
-          'https://github.com/MiOlika/DoSka/releases/download/0.1.6.0/DoSka_0.1.6.0.msi',
+          'https://github.com/MiOlika/DoSka/releases/download/1.0.0.0/DoSka_1.0.0.0.msi',
       primaryColor: Color(0xFFBF7DC4),
       logoPath: 'assets/images/doska_logo.png',
       videoPath: '456239019',

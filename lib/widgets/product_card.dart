@@ -5,16 +5,16 @@ import '../models/app_model.dart';
 import '../utils/constants.dart';
 import 'vk_video_player.dart';
 
-class AppDetailCard extends StatefulWidget {
+class ProductCard extends StatefulWidget {
   final AppModel app;
 
-  const AppDetailCard({super.key, required this.app});
+  const ProductCard({super.key, required this.app});
 
   @override
-  State<AppDetailCard> createState() => _AppDetailCardState();
+  State<ProductCard> createState() => _ProductCardState();
 }
 
-class _AppDetailCardState extends State<AppDetailCard> {
+class _ProductCardState extends State<ProductCard> {
   int _currentScreenshotIndex = 0;
   final Set<int> _expandedFaqs = {};
 
@@ -23,7 +23,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
     final colorScheme = Theme.of(context).colorScheme;
     final app = widget.app;
     final screenWidth = MediaQuery.of(context).size.width;
-    final isLargeScreen = screenWidth > 800;
+    final isMobile = screenWidth < 800;
 
     return Container(
       padding: const EdgeInsets.all(24),
@@ -142,7 +142,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
             Center(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxWidth: isLargeScreen ? 800 : double.infinity,
+                  maxWidth: isMobile ? double.infinity : 800,
                 ),
                 child: ScreenshotGallery(
                   screenshots: app.screenshots,
@@ -220,7 +220,7 @@ class _AppDetailCardState extends State<AppDetailCard> {
           }),
           const SizedBox(height: 24),
 
-          // ===== НОВАЯ СЕКЦИЯ: FAQ ДЛЯ ПРИЛОЖЕНИЯ =====
+          // ===== СЕКЦИЯ: FAQ (ПОЛНОСТЬЮ ИСПРАВЛЕННАЯ) =====
           if (app.faqs.isNotEmpty) ...[
             Container(
               padding: const EdgeInsets.all(16),
@@ -267,10 +267,10 @@ class _AppDetailCardState extends State<AppDetailCard> {
                           color: colorScheme.outlineVariant,
                         ),
                       ),
-                      child: Theme(
-                        data: Theme.of(context).copyWith(
-                          dividerColor: Colors.transparent,
-                        ),
+                      child: Material(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                        elevation: 0,
                         child: ExpansionTile(
                           onExpansionChanged: (expanded) {
                             setState(() {

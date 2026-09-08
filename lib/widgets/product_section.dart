@@ -1,67 +1,65 @@
 import 'package:flutter/material.dart';
 
 import '../utils/constants.dart';
-import 'app_detail_card.dart';
+import 'product_card.dart';
 
-class AppTabs extends StatefulWidget {
-  const AppTabs({super.key});
+class ProductSection extends StatefulWidget {
+  const ProductSection({super.key});
 
   @override
-  State<AppTabs> createState() => _AppTabsState();
+  State<ProductSection> createState() => _ProductSectionState();
 }
 
-class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(
-      length: AppConstants.allApps.length,
-      vsync: this,
-    );
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+class _ProductSectionState extends State<ProductSection> {
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final bool isDesktop = MediaQuery.of(context).size.width >= 600;
+    final bool isMobile = MediaQuery.of(context).size.width < 600;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Квадратные карточки-табы по центру
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Text(
+            'Программные продукты',
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: isMobile ? 22 : null,
+                ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        const SizedBox(height: 20),
+
+        // Квадратные карточки-кнопки по центру
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          child: AnimatedBuilder(
-            animation: _tabController,
-            builder: (context, child) {
-              return TabBar(
-                controller: _tabController,
-                isScrollable: true,
-                tabAlignment: TabAlignment.center,
-                indicator: const BoxDecoration(
-                  color: Colors.transparent,
-                ),
-                dividerColor: Colors.transparent,
-                labelColor: colorScheme.onSurface,
-                unselectedLabelColor: colorScheme.outline,
-                tabs: AppConstants.allApps.map((app) {
-                  final isSelected =
-                      _tabController.index == AppConstants.allApps.indexOf(app);
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: AppConstants.allApps.asMap().entries.map((entry) {
+                final index = entry.key;
+                final app = entry.value;
+                final isSelected = _selectedIndex == index;
 
-                  return Tab(
-                    height: 170,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
+                    borderRadius: BorderRadius.circular(16),
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeInOut,
                       width: 170,
+                      height: 170,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: isSelected
@@ -166,37 +164,13 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
                               ),
                             ),
                           ),
-                          if (isSelected) ...[
-                            const SizedBox(height: 6),
-                            ElevatedButton.icon(
-                              onPressed: () =>
-                                  LinkLauncher.launchUrlString(app.downloadUrl),
-                              icon: const Icon(
-                                Icons.download,
-                                size: 14,
-                              ),
-                              label: const Text('Скачать',
-                                  style: TextStyle(fontSize: 14)),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    app.primaryColor.withValues(alpha: 0.3),
-                                foregroundColor: colorScheme.onPrimary,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 3),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 2),
-                          ]
                         ],
                       ),
                     ),
-                  );
-                }).toList(),
-              );
-            },
+                  ),
+                );
+              }).toList(),
+            ),
           ),
         ),
 
@@ -204,8 +178,7 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
 
         // Контент с деталями приложения
         Container(
-          height: isDesktop ? 1000 : 500,
-          margin: const EdgeInsets.symmetric(horizontal: 4),
+          margin: const EdgeInsets.symmetric(horizontal: 30),
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainer,
             borderRadius: BorderRadius.circular(16),
@@ -219,19 +192,7 @@ class _AppTabsState extends State<AppTabs> with TickerProviderStateMixin {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: TabBarView(
-              controller: _tabController,
-              children: AppConstants.allApps.map((app) {
-                return SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 4,
-                    vertical: 8,
-                  ),
-                  child: AppDetailCard(app: app),
-                );
-              }).toList(),
-            ),
+            child: ProductCard(app: AppConstants.allApps[_selectedIndex]),
           ),
         ),
       ],

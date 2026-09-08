@@ -31,6 +31,7 @@ class AppConstants {
 
   // Социальные ссылки
   static const String vkUrl = 'https://vk.ru/pudra_soft';
+  static const String maxUrl = 'https://max.ru/channel_pudra_soft';
   static const String githubUrl = 'https://github.com/pudra-soft';
 
   // Фичи для секции "Почему выбирают нас" (общие для всех)

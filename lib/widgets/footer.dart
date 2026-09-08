@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../utils/constants.dart';
+import 'custom_separator.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -40,37 +41,39 @@ class Footer extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Container(
-            width: double.infinity,
-            height: 1.5,
-            margin: const EdgeInsets.symmetric(vertical: 5),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Colors.transparent, // Слева прозрачный
-                  colorScheme.outline, // В центре цвет primary
-                  Colors.transparent, // Справа прозрачный
-                ],
-                stops: const [0.0, 0.5, 1.0], // Равномерное распределение
-              ),
-            ),
-          ),
+          const CustomSeparator(),
           const SizedBox(height: 16),
-          OutlinedButton.icon(
-            onPressed: () => LinkLauncher.launchUrlString(AppConstants.vkUrl),
-            icon: const Icon(Icons.people, size: 18),
-            label: const Text('Группа ВКонтакте'),
-            style: OutlinedButton.styleFrom(
-              foregroundColor: colorScheme.outline,
-              side: BorderSide(color: colorScheme.outline),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+          Wrap(spacing: 10, children: [
+            OutlinedButton.icon(
+              onPressed: () => LinkLauncher.launchUrlString(AppConstants.vkUrl),
+              icon: const Icon(Icons.people, size: 18),
+              label: const Text('Группа ВКонтакте'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: colorScheme.outline,
+                side: BorderSide(color: colorScheme.outline),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
-          ),
+            OutlinedButton.icon(
+              onPressed: () =>
+                  LinkLauncher.launchUrlString(AppConstants.maxUrl),
+              icon: const Icon(Icons.mark_unread_chat_alt, size: 18),
+              label: const Text('Канал в MAX'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: colorScheme.outline,
+                side: BorderSide(color: colorScheme.outline),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            )
+          ]),
           const SizedBox(height: 16),
           Text(
             '© 2026 Pudra Soft. Все права защищены.',

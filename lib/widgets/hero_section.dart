@@ -20,7 +20,7 @@ class _HeroSectionState extends State<HeroSection>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 7),
+      duration: const Duration(seconds: 6),
       vsync: this,
     )..repeat();
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
