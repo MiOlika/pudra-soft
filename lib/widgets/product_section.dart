@@ -190,10 +190,7 @@ class _ProductSectionState extends State<ProductSection> {
               ),
             ],
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: ProductCard(app: AppConstants.allApps[_selectedIndex]),
-          ),
+          child: ProductCard(app: AppConstants.allApps[_selectedIndex]),
         ),
       ],
     );
