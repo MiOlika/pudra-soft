@@ -21,11 +21,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#FFF8FC">
     <meta name="description"
-          content="Pudra Soft — бесплатные локальные приложения для Windows: DoSka для проектов, Time Filler для расписаний и Clip Ink для записи экрана.">
+          content="Pudra Soft — бесплатные локальные приложения для Windows: DoSka для проектов, Time Filler для расписаний и Clip Ink для записи экрана. Работают без интернета и подписок.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Pudra Soft — локальное ПО для продуктивной работы">
     <meta property="og:description"
           content="DoSka, Time Filler и Clip Ink: бесплатные приложения для Windows, которые работают без интернета.">
+
+    <meta name="zen-verification" content="IKgUPuHUrslzpdwdtbsvdzb07ccJZZrnH4loI9osuSdm4Vo2XmVj7oS7Dw145Iha" />
+    <link rel="canonical" href="https://pudra-soft.ru/">
+    <link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/">
+    <link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/">
+    <link rel="alternate" hreflang="x-default" href="https://pudra-soft.ru/">
+    <meta property="og:url" content="https://pudra-soft.ru/">
+    <meta property="og:image" content="https://pudra-soft.ru/assets/assets/images/dark/mascot.jpg">
+    <link rel="stylesheet" href="seo.css">
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Pudra Soft", "url": "https://pudra-soft.ru/", "logo": "https://pudra-soft.ru/assets/assets/images/dark/pudra_soft_logo.png", "sameAs": ["https://vk.ru/pudra_soft", "https://max.ru/channel_pudra_soft", "https://github.com/MiOlika"]}</script>
 
     <!-- iOS meta tags & icons -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -40,6 +50,37 @@
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
+<!--
+  Текст для поисковиков и экран загрузки: виден, пока запускается Flutter.
+  После первого кадра он скрывается визуально, но остаётся в HTML.
+  Тексты совпадают с содержимым сайта, при их изменении обновляйте и этот блок.
+-->
+<div id="static-content">
+<header class="top"><div class="wrap top-row">
+<a class="brand" href="/"><img src="/assets/assets/images/dark/pudra_soft_logo.png" alt="" width="36" height="36">Pudra Soft</a>
+<nav><a href="/en/" hreflang="en">English</a></nav>
+</div></header>
+<main class="wrap">
+<section class="hero">
+<h1>Локальное ПО для продуктивной работы</h1>
+<p class="lead">Бесплатные приложения для Windows, которые работают полностью автономно. Ваши данные — только на вашем компьютере.</p>
+</section>
+<h2>Приложения</h2>
+<div class="cards">
+<a class="card" href="/doska/"><img src="/assets/assets/images/dark/doska_logo.png" alt="" width="56" height="56" loading="lazy"><h3>DoSka</h3><p>Персональный конструктор проектов для Windows</p></a>
+<a class="card" href="/time-filler/"><img src="/assets/assets/images/dark/timefiller_logo.png" alt="" width="56" height="56" loading="lazy"><h3>Time Filler</h3><p>Локальный планировщик для небольших команд</p></a>
+<a class="card" href="/clip-ink/"><img src="/assets/assets/images/dark/clip_ink_logo.png" alt="" width="56" height="56" loading="lazy"><h3>Clip Ink</h3><p>Лёгкая программа для записи экрана в Windows</p></a>
+</div>
+<h2>О нас</h2>
+<p>Мы молодой стартап и создаём десктопные приложения, которые можно скачать и использовать бесплатно, без рекламы и подписок. Всё работает локально, а ваша обратная связь помогает нам делать продукты лучше.</p>
+</main>
+<noscript><p class="wrap">Для работы сайта включите JavaScript. Приложения можно скачать по ссылкам выше.</p></noscript>
+</div>
+<script>
+  window.addEventListener('flutter-first-frame', function () {
+    document.getElementById('static-content').className = 'after-start';
+  });
+</script>
 <!--
   You can customize the "flutter_bootstrap.js" script.
   This is useful to provide a custom configuration to the Flutter loader

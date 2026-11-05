@@ -39,7 +39,11 @@ class AppSettings extends ChangeNotifier {
       preferences = null;
     }
 
-    final languageCode = preferences?.getString(_languageKey) ??
+    // Статические страницы для поисковиков открывают сайт ссылкой /?lang=en.
+    final requested = Uri.base.queryParameters['lang'];
+    final isSupported = requested == _russian || requested == _english;
+    final languageCode = (isSupported ? requested : null) ??
+        preferences?.getString(_languageKey) ??
         PlatformDispatcher.instance.locale.languageCode;
     final theme = preferences?.getString(_themeKey);
 
