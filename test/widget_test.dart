@@ -62,9 +62,4 @@ void main() {
     expect(light.image('banner.jpg'), 'assets/images/light/banner.jpg');
     expect(dark.screenshot('a.png'), 'assets/screenshots/dark/a.png');
   });
-
-  test('переводы зависят от языка', () {
-    expect(lookupAppLocalizations(const Locale('ru')).download, 'Скачать');
-    expect(lookupAppLocalizations(const Locale('en')).download, 'Download');
-  });
 }

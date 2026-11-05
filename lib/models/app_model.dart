@@ -16,7 +16,7 @@ class AppModel {
   final String description;
   final String detailedDescription;
 
-  /// Цвет приложения. Значения для каждой темы заданы в [AppColors].
+  /// Цвет приложения. Значения для каждой темы заданы в [SiteColors].
   final AppAccent accent;
 
   /// Имя файла логотипа в папке `assets/images/<тема>/`.
@@ -54,7 +54,7 @@ class AppModel {
 
   /// Цвет приложения для текущей темы.
   Color accentColor(BuildContext context) {
-    return AppColors.of(context).accent(accent);
+    return SiteColors.of(context).accent(accent);
   }
 
   /// Логотип для текущей темы.
@@ -66,6 +66,13 @@ class AppModel {
   List<String> screenshots(BuildContext context) {
     final images = AppImages.of(context);
     return screenshotFiles.map(images.screenshot).toList(growable: false);
+  }
+
+  /// Ссылка на видео о приложении, если оно есть.
+  String? get videoUrl {
+    final id = videoPath;
+    if (id == null || id.isEmpty) return null;
+    return 'https://vkvideo.ru/video_ext.php?oid=-158779686&id=$id&hd=2';
   }
 
   /// Страница со всеми релизами приложения на GitHub.
@@ -150,10 +157,14 @@ class AppModel {
         l.timeFillerBenefit5,
       ],
       faqs: [
-        FaqItem(question: l.timeFillerFaq1Question, answer: l.timeFillerFaq1Answer),
-        FaqItem(question: l.timeFillerFaq2Question, answer: l.timeFillerFaq2Answer),
-        FaqItem(question: l.timeFillerFaq3Question, answer: l.timeFillerFaq3Answer),
-        FaqItem(question: l.timeFillerFaq4Question, answer: l.timeFillerFaq4Answer),
+        FaqItem(
+            question: l.timeFillerFaq1Question, answer: l.timeFillerFaq1Answer),
+        FaqItem(
+            question: l.timeFillerFaq2Question, answer: l.timeFillerFaq2Answer),
+        FaqItem(
+            question: l.timeFillerFaq3Question, answer: l.timeFillerFaq3Answer),
+        FaqItem(
+            question: l.timeFillerFaq4Question, answer: l.timeFillerFaq4Answer),
       ],
     );
   }
@@ -171,6 +182,9 @@ class AppModel {
       accent: AppAccent.clipInk,
       logoFile: 'clip_ink_logo.png',
       fallbackIcon: Icons.videocam_rounded,
+      screenshotFiles: const [
+        'clip_ink_1.png',
+      ],
       features: [
         l.clipInkFeature1,
         l.clipInkFeature2,

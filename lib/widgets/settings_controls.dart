@@ -11,7 +11,7 @@ class SettingsControls extends StatelessWidget {
   Widget build(BuildContext context) {
     final settings = AppSettingsScope.of(context);
     final strings = AppLocalizations.of(context);
-    final color = Theme.of(context).colorScheme.outline;
+    final color = Theme.of(context).colorScheme.onSurface;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -22,13 +22,9 @@ class SettingsControls extends StatelessWidget {
             onPressed: settings.toggleLanguage,
             style: TextButton.styleFrom(
               foregroundColor: color,
-              minimumSize: const Size(44, 44),
               padding: const EdgeInsets.symmetric(horizontal: 8),
             ),
-            child: Text(
-              strings.otherLanguageLabel,
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
+            child: Text(strings.otherLanguageLabel),
           ),
         ),
         IconButton(

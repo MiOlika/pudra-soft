@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/generated/app_localizations.dart';
+import '../models/app_model.dart';
+import '../utils/app_theme.dart';
 import '../utils/constants.dart';
 import 'app_releases_builder.dart';
 import 'product_card.dart';
+import 'site_common.dart';
 
+/// Раздел приложений: кнопки выбора и карточка выбранного приложения.
 class ProductSection extends StatefulWidget {
   const ProductSection({super.key});
 
@@ -17,189 +21,159 @@ class _ProductSectionState extends State<ProductSection> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final bool isMobile = MediaQuery.of(context).size.width < 600;
     final strings = AppLocalizations.of(context);
     final apps = AppConstants.appsFor(strings);
+    final selected = apps[_selectedIndex];
 
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Text(
-            strings.productsTitle,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: isMobile ? 22 : null,
+        SectionTitle(eyebrow: strings.productsEyebrow),
+        Row(
+          children: [
+            for (var i = 0; i < apps.length; i++) ...[
+              if (i > 0) const SizedBox(width: 10),
+              Expanded(
+                child: _AppTile(
+                  app: apps[i],
+                  isSelected: i == _selectedIndex,
+                  onTap: () => setState(() => _selectedIndex = i),
                 ),
-            textAlign: TextAlign.center,
+              ),
+            ],
+          ],
+        ),
+        const SizedBox(height: 24),
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 220),
+          layoutBuilder: (current, previous) => Stack(
+            alignment: Alignment.topCenter,
+            children: [...previous, if (current != null) current],
+          ),
+          child: ProductCard(key: ValueKey(selected.id), app: selected),
+        ),
+      ],
+    );
+  }
+}
+
+/// Вкладка приложения: на компьютере значок и подписи идут в строку,
+/// на телефоне друг под другом, чтобы три вкладки помещались в ряд.
+class _AppTile extends StatelessWidget {
+  final AppModel app;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _AppTile({
+    required this.app,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final colors = SiteColors.of(context);
+    final accent = app.accentColor(context);
+    final isPhone = MediaQuery.sizeOf(context).width < 600;
+    final radius = BorderRadius.circular(16);
+
+    final logo = Container(
+      width: 44,
+      height: 44,
+      padding: const EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: accent.withValues(alpha: isSelected ? 0.18 : 0.1),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Image.asset(
+        app.logoPath(context),
+        errorBuilder: (_, __, ___) => Icon(app.fallbackIcon, color: accent),
+      ),
+    );
+    final name = Text(
+      app.title,
+      textAlign: isPhone ? TextAlign.center : TextAlign.start,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontSize: 15,
+        fontWeight: FontWeight.w800,
+        color: scheme.onSurface,
+      ),
+    );
+    final version = AppReleasesBuilder(
+      app: app,
+      builder: (context, releases) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+        decoration: BoxDecoration(
+          color: accent.withValues(alpha: isSelected ? 0.18 : 0.1),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          releases.version,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            color: isSelected ? scheme.onSurface : scheme.onSurfaceVariant,
           ),
         ),
-        const SizedBox(height: 20),
+      ),
+    );
 
-        // Квадратные карточки-кнопки по центру
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: apps.asMap().entries.map((entry) {
-                final index = entry.key;
-                final app = entry.value;
-                final isSelected = _selectedIndex == index;
-
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = index;
-                      });
-                    },
-                    borderRadius: BorderRadius.circular(16),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                      width: 170,
-                      height: 170,
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? colorScheme.surfaceContainerHighest
-                            : colorScheme.surfaceContainerLow,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: isSelected
-                              ? app.accentColor(context)
-                              : colorScheme.outlineVariant,
-                          width: isSelected ? 2.5 : 1.5,
+    return Semantics(
+      button: true,
+      selected: isSelected,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeOut,
+        decoration: BoxDecoration(
+          borderRadius: radius,
+          color: isSelected
+              ? accent.withValues(alpha: 0.1)
+              : scheme.surfaceContainerLow,
+          border: Border.all(
+            color: isSelected ? accent.withValues(alpha:0.5) : colors.cardBorder,
+            width: isSelected ? 1.0 : 1.0,
+          ),
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: radius,
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: isPhone
+                  ? Column(
+                      children: [
+                        logo,
+                        const SizedBox(height: 6),
+                        name,
+                        const SizedBox(height: 4),
+                        version,
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        logo,
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              name,
+                              const SizedBox(height: 3),
+                              version,
+                            ],
+                          ),
                         ),
-                        boxShadow: isSelected
-                            ? [
-                                BoxShadow(
-                                  color:
-                                      app.accentColor(context).withValues(alpha: 0.3),
-                                  blurRadius: 16,
-                                  offset: const Offset(0, 4),
-                                  spreadRadius: 2,
-                                ),
-                              ]
-                            : [
-                                BoxShadow(
-                                  color: colorScheme.shadow,
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Логотип
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? app.accentColor(context).withValues(alpha: 0.15)
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: app.logoFile.isNotEmpty
-                                ? Image.asset(
-                                    app.logoPath(context),
-                                    height: 40,
-                                    width: 40,
-                                    errorBuilder: (_, __, ___) => Icon(
-                                      app.fallbackIcon,
-                                      color: isSelected
-                                          ? app.accentColor(context)
-                                          : colorScheme.outline,
-                                      size: 40,
-                                    ),
-                                  )
-                                : Icon(
-                                    Icons.apps,
-                                    color: isSelected
-                                        ? app.accentColor(context)
-                                        : colorScheme.outline,
-                                    size: 40,
-                                  ),
-                          ),
-                          const SizedBox(height: 5),
-                          // Название приложения
-                          Text(
-                            app.title,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: isSelected
-                                  ? FontWeight.w700
-                                  : FontWeight.w500,
-                              color: isSelected
-                                  ? app.accentColor(context)
-                                  : colorScheme.outline,
-                            ),
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 4),
-                          // Версия
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? app.accentColor(context).withValues(alpha: 0.15)
-                                  : colorScheme.surfaceContainerHighest,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: AppReleasesBuilder(
-                              app: app,
-                              builder: (context, releases) => Text(
-                                releases.version,
-                                style: TextStyle(
-                                  fontSize: 9,
-                                  color: isSelected
-                                      ? app.accentColor(context)
-                                      : colorScheme.outline,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      ],
                     ),
-                  ),
-                );
-              }).toList(),
             ),
           ),
         ),
-
-        const SizedBox(height: 24),
-
-        // Контент с деталями приложения
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 30),
-          decoration: BoxDecoration(
-            color: colorScheme.surfaceContainer,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: colorScheme.shadow,
-                blurRadius: 10,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: ProductCard(app: apps[_selectedIndex]),
-        ),
-      ],
+      ),
     );
   }
 }

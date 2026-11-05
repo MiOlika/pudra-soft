@@ -1,470 +1,358 @@
 import 'package:flutter/material.dart';
-import 'package:pudra_soft/widgets/screenshot_gallery.dart';
 
 import '../l10n/generated/app_localizations.dart';
 import '../models/app_model.dart';
+import '../utils/app_theme.dart';
 import '../utils/constants.dart';
 import 'app_releases_builder.dart';
+import 'screenshot_gallery.dart';
+import 'site_common.dart';
 import 'versions_section.dart';
-import 'vk_video_player.dart';
 
-class ProductCard extends StatefulWidget {
+/// Карточка приложения: описание, скачивание, скриншоты и подробности.
+class ProductCard extends StatelessWidget {
   final AppModel app;
 
   const ProductCard({super.key, required this.app});
 
   @override
-  State<ProductCard> createState() => _ProductCardState();
-}
-
-class _ProductCardState extends State<ProductCard> {
-  final Set<int> _expandedFaqs = {};
-
-  @override
   Widget build(BuildContext context) {
+    final colors = SiteColors.of(context);
+    final accent = app.accentColor(context);
+
     return AppReleasesBuilder(
-      app: widget.app,
-      builder: _buildCard,
-    );
-  }
-
-  Widget _buildCard(BuildContext context, AppReleases releases) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final app = widget.app;
-    final strings = AppLocalizations.of(context);
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 800;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainer,
-        border: Border.all(color: colorScheme.outlineVariant, width: 1.5),
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: app.accentColor(context).withValues(alpha: 0.08),
-            blurRadius: 32,
-            offset: const Offset(0, 8),
-            spreadRadius: 0,
+      app: app,
+      builder: (context, releases) => Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: colors.cardGradient,
           ),
-        ],
-      ),
-      padding: const EdgeInsets.all(30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Шапка с логотипом и названием
-          _buildHeader(context, app, releases, colorScheme, isMobile),
-          const SizedBox(height: 28),
-
-          // Видео демонстрация
-          if (app.videoPath != null && app.videoPath!.isNotEmpty) ...[
-            Center(
-              child: VkVideoPlayer(
-                accentColor: app.accentColor(context),
-                videoOwnerId: '-158779686',
-                videoId: app.videoPath!,
-                coverPath: app.screenshots(context).first,
-              ),
+          borderRadius: BorderRadius.circular(30),
+          border: Border.all(color: accent.withValues(alpha: 0.35)),
+          boxShadow: [
+            BoxShadow(
+              color: accent.withValues(alpha: 0.1),
+              blurRadius: 25,
+              offset: const Offset(0, 10),
             ),
-            const SizedBox(height: 28),
           ],
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final wide = constraints.maxWidth >= kWideLayout;
+            final info = _ProductInfo(app: app, releases: releases, wide: wide);
+            final gallery = ScreenshotGallery(app: app);
 
-          // Описание
-          _buildSectionTitle(
-            context,
-            strings.descriptionTitle,
-            Icons.description_outlined,
-            app.accentColor(context),
-            colorScheme,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            app.detailedDescription,
-            style: TextStyle(
-              color: colorScheme.onSurfaceVariant,
-              height: 1.7,
-              fontSize: 15,
-            ),
-          ),
-          const SizedBox(height: 28),
-
-          // Скриншоты
-          if (app.screenshotFiles.isNotEmpty) ...[
-            Center(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxWidth: isMobile ? double.infinity : 800,
-                ),
-                child: ScreenshotGallery(
-                  screenshots: app.screenshots(context),
-                  accentColor: app.accentColor(context),
-                ),
-              ),
-            ),
-            const SizedBox(height: 28),
-          ],
-
-          // Функции
-          _buildSectionTitle(
-            context,
-            strings.featuresTitle,
-            Icons.star_outline_rounded,
-            app.accentColor(context),
-            colorScheme,
-          ),
-          const SizedBox(height: 14),
-          Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: app.features.map((feature) {
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 10,
-                ),
-                decoration: BoxDecoration(
-                  color: app.accentColor(context).withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: app.accentColor(context).withValues(alpha: 0.2),
-                  ),
-                ),
-                child: Text(
-                  feature,
-                  style: TextStyle(
-                    color: app.accentColor(context),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-          const SizedBox(height: 28),
-
-          // Преимущества
-          _buildSectionTitle(
-            context,
-            strings.benefitsTitle,
-            Icons.thumb_up_outlined,
-            app.accentColor(context),
-            colorScheme,
-          ),
-          const SizedBox(height: 14),
-          ...app.benefits.map((benefit) {
             return Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              padding: EdgeInsets.all(wide ? 26 : 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 2),
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: app.accentColor(context).withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.check_rounded,
-                      color: app.accentColor(context),
-                      size: 14,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      benefit,
-                      style: TextStyle(
-                        color: colorScheme.onSurfaceVariant,
-                        fontSize: 15,
-                        height: 1.5,
-                      ),
-                    ),
-                  ),
+                  if (wide)
+                    Row(
+                      children: [
+                        Expanded(flex: 38, child: info),
+                        const SizedBox(width: 24),
+                        Expanded(flex: 62, child: gallery),
+                      ],
+                    )
+                  else ...[
+                    info,
+                    const SizedBox(height: 20),
+                    gallery,
+                  ],
+                  const SizedBox(height: 18),
+                  _ProductDetails(app: app, releases: releases),
                 ],
               ),
             );
-          }),
-          const SizedBox(height: 28),
-
-          // Версии и скачивание
-          _buildSectionTitle(
-            context,
-            strings.versionsTitle,
-            Icons.history_rounded,
-            app.accentColor(context),
-            colorScheme,
-          ),
-          const SizedBox(height: 14),
-          VersionsSection(key: ValueKey(app.id), releases: releases),
-          const SizedBox(height: 28),
-
-          // ---------------------- СЕКЦИЯ: FAQ ----------------------
-          if (app.faqs.isNotEmpty) ...[
-            _buildSectionTitle(
-              context,
-              strings.faqTitle,
-              Icons.help_outline_rounded,
-              app.accentColor(context),
-              colorScheme,
-            ),
-            const SizedBox(height: 16),
-            ...app.faqs.asMap().entries.map((entry) {
-              final index = entry.key;
-              final faq = entry.value;
-              final isExpanded = _expandedFaqs.contains(index);
-
-              return Container(
-                margin: const EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                  color: colorScheme.surface,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: isExpanded
-                        ? app.accentColor(context).withValues(alpha: 0.4)
-                        : colorScheme.outlineVariant,
-                  ),
-                ),
-                child: Material(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(10),
-                  child: ExpansionTile(
-                    onExpansionChanged: (expanded) {
-                      setState(() {
-                        if (expanded) {
-                          _expandedFaqs.add(index);
-                        } else {
-                          _expandedFaqs.remove(index);
-                        }
-                      });
-                    },
-                    shape: const Border(),
-                    collapsedShape: const Border(),
-                    tilePadding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 6,
-                    ),
-                    childrenPadding: const EdgeInsets.only(
-                      left: 18,
-                      right: 18,
-                      bottom: 18,
-                    ),
-                    title: Text(
-                      faq.question,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                    trailing: AnimatedRotation(
-                      turns: isExpanded ? 0.5 : 0,
-                      duration: const Duration(milliseconds: 200),
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: app.accentColor(context).withValues(alpha: 0.1),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: app.accentColor(context),
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          faq.answer,
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: colorScheme.onSurfaceVariant,
-                            height: 1.6,
-                            fontSize: 14.5,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }),
-            const SizedBox(height: 28),
-          ],
-
-          // Кнопка скачивания
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton.icon(
-              onPressed: () => LinkLauncher.launchUrlString(releases.downloadUrl),
-              icon: const Icon(Icons.download_rounded, size: 22),
-              label: Text(
-                strings.downloadFree,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: app.accentColor(context),
-                foregroundColor: colorScheme.onPrimary,
-                padding: const EdgeInsets.symmetric(vertical: 18),
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-          ),
-        ],
+          },
+        ),
       ),
     );
   }
+}
 
-  Widget _buildHeader(
-    BuildContext context,
-    AppModel app,
-    AppReleases releases,
-    ColorScheme colorScheme,
-    bool isMobile,
-  ) {
-    final logoAndTitle = Row(
-      children: [
-        Container(
-          width: 72,
-          height: 72,
-          decoration: BoxDecoration(
-            color: app.accentColor(context).withValues(alpha: 0.12),
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: app.accentColor(context).withValues(alpha: 0.2),
+class _ProductInfo extends StatelessWidget {
+  final AppModel app;
+  final AppReleases releases;
+  final bool wide;
+
+  const _ProductInfo({
+    required this.app,
+    required this.releases,
+    required this.wide,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final strings = AppLocalizations.of(context);
+    final scheme = Theme.of(context).colorScheme;
+    final accent = app.accentColor(context);
+    final video = app.videoUrl;
+
+    final download = FilledButton.icon(
+      onPressed: () => LinkLauncher.launchUrlString(releases.downloadUrl),
+      icon: const Icon(Icons.download_rounded),
+      label: Text(strings.downloadFree),
+      style: FilledButton.styleFrom(
+        backgroundColor: accent,
+        foregroundColor: scheme.onPrimary,
+      ),
+    );
+    final watch = video == null
+        ? null
+        : OutlinedButton.icon(
+            onPressed: () => LinkLauncher.launchUrlString(video),
+            icon: const Icon(Icons.play_arrow_rounded),
+            label: Text(strings.watchVideo),
+            style: OutlinedButton.styleFrom(
+              foregroundColor: accent,
+              side: BorderSide(color: accent),
             ),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Padding(
-              padding: const EdgeInsets.all(8),
+          );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              width: 60,
+              height: 60,
+              padding: const EdgeInsets.all(7),
+              decoration: BoxDecoration(
+                color: accent.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(17),
+                border: Border.all(color: accent.withValues(alpha: 0.2)),
+              ),
               child: Image.asset(
                 app.logoPath(context),
                 errorBuilder: (_, __, ___) => Icon(
                   app.fallbackIcon,
-                  color: app.accentColor(context),
-                  size: 40,
+                  color: accent,
+                  size: 34,
                 ),
               ),
             ),
-          ),
-        ),
-        const SizedBox(width: 18),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
+            const SizedBox(width: 14),
+            Flexible(
+              child: Text(
                 app.title,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: colorScheme.onSurface,
-                      letterSpacing: -0.5,
-                    ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                app.subtitle,
                 style: TextStyle(
-                  color: app.accentColor(context),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15,
+                  fontSize: wide ? 34 : 30,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: -1,
+                  color: scheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 4),
-              Row(
-                children: [
-                  Icon(
-                    Icons.desktop_windows_outlined,
-                    size: 14,
-                    color: colorScheme.outline,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    AppLocalizations.of(context).versionForWindows(releases.version),
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: colorScheme.outline,
-                        ),
-                  ),
-                ],
-              ),
-            ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Text(
+          app.subtitle,
+          style: TextStyle(
+            fontSize: 18,
+            height: 1.3,
+            fontWeight: FontWeight.w700,
+            color: accent,
           ),
         ),
-      ],
-    );
-
-    final downloadButton = OutlinedButton.icon(
-      onPressed: () => LinkLauncher.launchUrlString(releases.downloadUrl),
-      icon: const Icon(Icons.download_rounded, size: 18),
-      label: Text(AppLocalizations.of(context).download),
-      style: OutlinedButton.styleFrom(
-        foregroundColor: app.accentColor(context),
-        side: BorderSide(color: app.accentColor(context), width: 1.5),
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+        const SizedBox(height: 8),
+        Text(
+          app.description,
+          style: TextStyle(
+            fontSize: 14,
+            height: 1.55,
+            color: scheme.onSurfaceVariant,
+          ),
         ),
-      ),
-    );
-
-    if (isMobile) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          logoAndTitle,
-          const SizedBox(height: 16),
-          SizedBox(width: double.infinity, child: downloadButton),
+        const SizedBox(height: 16),
+        for (final feature in app.features)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 9),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.check_circle_rounded,
+                  color: accent,
+                  size: 18,
+                ),
+                const SizedBox(width: 9),
+                Expanded(
+                  child: Text(
+                    feature,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: scheme.onSurface,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        const SizedBox(height: 12),
+        if (wide)
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: [download, if (watch != null) watch],
+          )
+        else ...[
+          SizedBox(width: double.infinity, child: download),
+          if (watch != null) ...[
+            const SizedBox(height: 10),
+            SizedBox(width: double.infinity, child: watch),
+          ],
         ],
-      );
-    }
-
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(child: logoAndTitle),
-        const SizedBox(width: 16),
-        downloadButton,
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            Icon(
+              Icons.desktop_windows_outlined,
+              size: 14,
+              color: scheme.outline,
+            ),
+            const SizedBox(width: 5),
+            Expanded(
+              child: Text(
+                strings.versionForWindows(releases.version),
+                style: TextStyle(fontSize: 12, color: scheme.outline),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
+}
 
-  Widget _buildSectionTitle(
-    BuildContext context,
-    String title,
-    IconData icon,
-    Color accentColor,
-    ColorScheme colorScheme,
-  ) {
-    return Row(
+/// Подробности сворачиваются, чтобы страница оставалась короткой на телефоне.
+class _ProductDetails extends StatelessWidget {
+  final AppModel app;
+  final AppReleases releases;
+
+  const _ProductDetails({required this.app, required this.releases});
+
+  @override
+  Widget build(BuildContext context) {
+    final strings = AppLocalizations.of(context);
+    final scheme = Theme.of(context).colorScheme;
+    final accent = app.accentColor(context);
+    final textStyle = TextStyle(
+      fontSize: 15,
+      height: 1.6,
+      color: scheme.onSurfaceVariant,
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: accentColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Icon(icon, color: accentColor, size: 20),
-        ),
-        const SizedBox(width: 12),
-        Text(
-          title,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: colorScheme.onSurface,
-                letterSpacing: -0.3,
+        _DetailsPanel(
+          accent: accent,
+          icon: Icons.description_outlined,
+          title: strings.descriptionTitle,
+          children: [
+            Text(app.detailedDescription, style: textStyle),
+            const SizedBox(height: 16),
+            for (final benefit in app.benefits)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.check_rounded, color: accent, size: 20),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(benefit, style: textStyle)),
+                  ],
+                ),
               ),
+          ],
         ),
+        _DetailsPanel(
+          accent: accent,
+          icon: Icons.history_rounded,
+          title: strings.versionsTitle,
+          children: [VersionsSection(releases: releases)],
+        ),
+        if (app.faqs.isNotEmpty)
+          _DetailsPanel(
+            accent: accent,
+            icon: Icons.help_outline_rounded,
+            title: strings.faqTitle,
+            children: [
+              for (final faq in app.faqs)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        faq.question,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          color: scheme.onSurface,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(faq.answer, style: textStyle),
+                    ],
+                  ),
+                ),
+            ],
+          ),
       ],
+    );
+  }
+}
+
+class _DetailsPanel extends StatelessWidget {
+  final Color accent;
+  final IconData icon;
+  final String title;
+  final List<Widget> children;
+
+  const _DetailsPanel({
+    required this.accent,
+    required this.icon,
+    required this.title,
+    required this.children,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final colors = SiteColors.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Material(
+        color: scheme.surface.withValues(alpha: 0.6),
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(color: colors.cardBorder),
+        ),
+        child: ExpansionTile(
+          leading: Icon(icon, color: accent),
+          iconColor: accent,
+          collapsedIconColor: accent,
+          title: Text(
+            title,
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+          ),
+          tilePadding: const EdgeInsets.symmetric(horizontal: 14),
+          childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+          expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+          children: children,
+        ),
+      ),
     );
   }
 }

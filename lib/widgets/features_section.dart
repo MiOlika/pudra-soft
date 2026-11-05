@@ -1,104 +1,96 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/generated/app_localizations.dart';
+import '../utils/app_theme.dart';
 import '../utils/constants.dart';
+import 'site_common.dart';
 
+/// Раздел «Почему выбирают нас».
 class FeaturesSection extends StatelessWidget {
   const FeaturesSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 600;
     final strings = AppLocalizations.of(context);
 
-    // Вычисляем ширину карточки
-    double getCardWidth() {
-      if (isMobile) {
-        // На мобильных: 2 колонки с отступами
-        return (screenWidth - 48) / 2;
-      }
-      // На десктопе: 3 колонки
-      return (screenWidth - 48) / 3;
-    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SectionTitle(
+          eyebrow: strings.whyUsEyebrow,
+          subtitle: strings.whyUsSubtitle,
+        ),
+        ResponsiveGrid(
+          children: [
+            for (final feature in AppConstants.featuresFor(strings))
+              _FeatureCard(
+                icon: feature['icon'] as IconData,
+                title: feature['title'] as String,
+                description: feature['description'] as String,
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _FeatureCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String description;
+
+  const _FeatureCard({
+    required this.icon,
+    required this.title,
+    required this.description,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final colors = SiteColors.of(context);
 
     return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: isMobile ? 32 : 40,
+      constraints: const BoxConstraints(minHeight: 180),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 21),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: colors.softCardGradient,
+        ),
+        border: Border.all(color: colors.cardBorder),
+        borderRadius: BorderRadius.circular(23),
+        boxShadow: [
+          BoxShadow(
+            color: colors.glow,
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          IconTile(icon: icon),
+          const SizedBox(height: 16),
           Text(
-            strings.whyUsTitle,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: isMobile ? 22 : null,
-                ),
-            textAlign: TextAlign.center,
+            title,
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w900,
+              color: scheme.onSurface,
+            ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 7),
           Text(
-            isMobile ? strings.whyUsSubtitleMobile : strings.whyUsSubtitle,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: colorScheme.outline,
-                  fontSize: isMobile ? 14 : null,
-                ),
-          ),
-          const SizedBox(height: 32),
-
-          // Используем Wrap для автоматического переноса
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            alignment: WrapAlignment.center,
-            children: AppConstants.featuresFor(strings).map((feature) {
-              return SizedBox(
-                width: getCardWidth(),
-                height: 200,
-                child: Card(
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(
-                      color: colorScheme.outline,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(feature['icon'],
-                            color: colorScheme.outline, size: 35),
-                        SizedBox(height: isMobile ? 6 : 8),
-                        Text(
-                          feature['title']!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: isMobile ? 14 : 16,
-                          ),
-                        ),
-                        SizedBox(height: isMobile ? 4 : 8),
-                        Text(
-                          feature['description']!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: colorScheme.outline,
-                            fontSize: isMobile ? 12 : 13,
-                            height: 1.3,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
+            description,
+            style: TextStyle(
+              fontSize: 14,
+              height: 1.4,
+              color: scheme.onSurfaceVariant,
+            ),
           ),
         ],
       ),

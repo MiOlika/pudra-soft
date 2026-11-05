@@ -9,9 +9,6 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get supportTooltip => 'Поддержка ВКонтакте';
-
-  @override
   String get otherLanguageLabel => 'EN';
 
   @override
@@ -27,56 +24,24 @@ class AppLocalizationsRu extends AppLocalizations {
   String get heroTitle => 'Локальное ПО для\nпродуктивной работы';
 
   @override
-  String get heroSubtitleMobile =>
-      'Бесплатные приложения для Windows,\nработающие полностью автономно';
-
-  @override
   String get heroSubtitle =>
-      'Бесплатные приложения для Windows, которые работают полностью автономно.\nВаши данные — только на вашем компьютере.';
-
-  @override
-  String get heroBadgeMobile => 'Бесплатно • Без подписки';
+      'Бесплатные приложения для Windows, которые работают полностью автономно. Ваши данные — только на вашем компьютере.';
 
   @override
   String get heroBadge => 'Бесплатно • Без подписки • Полная автономность';
 
   @override
-  String get productsTitle => 'Программные продукты';
-
-  @override
-  String get partnersTitle => 'Партнеры';
-
-  @override
-  String get whyUsTitle => 'Почему выбирают нас';
-
-  @override
-  String get whyUsSubtitleMobile =>
-      'Приложения от Pudra Soft для продуктивной работы\nс полной приватностью';
-
-  @override
   String get whyUsSubtitle =>
-      'Приложения от Pudra Soft созданы для продуктивной работы\nс полной приватностью ваших данных';
+      'Приложения от Pudra Soft созданы для продуктивной работы с полной приватностью ваших данных.';
 
   @override
   String get descriptionTitle => 'Описание';
-
-  @override
-  String get galleryTitle => 'Галерея';
-
-  @override
-  String get featuresTitle => 'Ключевые возможности';
-
-  @override
-  String get benefitsTitle => 'Преимущества';
 
   @override
   String get versionsTitle => 'Версии';
 
   @override
   String get faqTitle => 'Часто задаваемые вопросы';
-
-  @override
-  String get download => 'Скачать';
 
   @override
   String get downloadFree => 'Скачать бесплатно';
@@ -222,19 +187,19 @@ class AppLocalizationsRu extends AppLocalizations {
       'DoSka — это персональный конструктор проектов для Windows. Простое и мощное приложение для визуального планирования, которое поможет структурировать любую задачу: от бизнес-процесса до учебного проекта.\n\nПриложение работает полностью локально, без подключения к интернету и облачным сервисам, гарантируя, что все данные останутся только на вашем компьютере.\n\nРешение позволяет собирать пользовательские истории, визуализировать процессы и техкарты, а также декомпозировать задачи любого уровня сложности.';
 
   @override
-  String get doskaFeature1 => '📋 Иерархические списки задач (WBS)';
+  String get doskaFeature1 => 'Иерархические списки задач (WBS)';
 
   @override
-  String get doskaFeature2 => '📝 Сбор пользовательских историй';
+  String get doskaFeature2 => 'Сбор пользовательских историй';
 
   @override
-  String get doskaFeature3 => '🔗 Связи между заметками';
+  String get doskaFeature3 => 'Связи между заметками';
 
   @override
-  String get doskaFeature4 => '✅ Чек-листы';
+  String get doskaFeature4 => 'Чек-листы';
 
   @override
-  String get doskaFeature5 => '🎨 Управление временем выполнения';
+  String get doskaFeature5 => 'Управление временем выполнения';
 
   @override
   String get doskaBenefit1 => 'Полная автономность (без интернета и облаков)';
@@ -292,19 +257,19 @@ class AppLocalizationsRu extends AppLocalizations {
       'TimeFiller — это локальный планировщик для Windows, созданный для небольших команд. Приложение работает полностью автономно, без подключения к интернету и облачным сервисам, гарантируя, что все данные останутся только на вашем компьютере.\n\nРешение позволяет управлять отпусками сотрудников, вести запись клиентов, планировать встречи и регулярные события, а также организовывать работу по спринтам.';
 
   @override
-  String get timeFillerFeature1 => '📅 Графики смен (2 через 2, 5/2)';
+  String get timeFillerFeature1 => 'Графики смен (2 через 2, 5/2)';
 
   @override
-  String get timeFillerFeature2 => '🏖️ Управление отпусками сотрудников';
+  String get timeFillerFeature2 => 'Управление отпусками сотрудников';
 
   @override
-  String get timeFillerFeature3 => '👥 Запись клиентов и встреч';
+  String get timeFillerFeature3 => 'Запись клиентов и встреч';
 
   @override
-  String get timeFillerFeature4 => '🔄 Поддержка спринтов';
+  String get timeFillerFeature4 => 'Поддержка спринтов';
 
   @override
-  String get timeFillerFeature5 => '🎯 Фильтрация по категориям';
+  String get timeFillerFeature5 => 'Фильтрация по категориям';
 
   @override
   String get timeFillerBenefit1 =>
@@ -363,19 +328,19 @@ class AppLocalizationsRu extends AppLocalizations {
       'Clip Ink — лёгкая программа для записи экрана в Windows. Вы двигаете и растягиваете рамку над нужным местом, нажимаете «Начать запись» и получаете обычный MP4, который открывается в любом плеере и загружается на любые площадки. Рамка в видео не попадает: пишется только то, что внутри неё.\n\nЗаписать можно произвольную область, весь экран или окно приложения, со звуком микрофона, системы или сразу обоих источников. Во время записи можно рисовать и добавлять подписи.';
 
   @override
-  String get clipInkFeature1 => '🖼️ Рамка, весь экран или окно';
+  String get clipInkFeature1 => 'Рамка, весь экран или окно';
 
   @override
-  String get clipInkFeature2 => '🎙️ Микрофон и системный звук';
+  String get clipInkFeature2 => 'Микрофон и системный звук';
 
   @override
-  String get clipInkFeature3 => '✏️ Рисование и подписи';
+  String get clipInkFeature3 => 'Рисование и подписи';
 
   @override
-  String get clipInkFeature4 => '⏸️ Пауза без рассинхронизации';
+  String get clipInkFeature4 => 'Пауза без рассинхронизации';
 
   @override
-  String get clipInkFeature5 => '🎞️ 15, 24, 30 или 60 кадров/с';
+  String get clipInkFeature5 => '15, 24, 30 или 60 кадров/с';
 
   @override
   String get clipInkBenefit1 =>
@@ -422,4 +387,169 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get clipInkFaq4Answer =>
       'Нет. Если пишете и микрофон, и звук с монитора, используйте наушники.';
+
+  @override
+  String get brandTagline => 'Локальные приложения для Windows';
+
+  @override
+  String get navProducts => 'Продукты';
+
+  @override
+  String get navBenefits => 'Преимущества';
+
+  @override
+  String get navAbout => 'О нас';
+
+  @override
+  String get navBlog => 'Блог';
+
+  @override
+  String get navContacts => 'Контакты';
+
+  @override
+  String get contactUs => 'Связаться';
+
+  @override
+  String get menuTooltip => 'Меню';
+
+  @override
+  String get backToTop => 'Наверх';
+
+  @override
+  String get heroActionProducts => 'Смотреть продукты';
+
+  @override
+  String get heroActionAbout => 'О нас';
+
+  @override
+  String get mascotLabel => 'Спонж — маскот Pudra Soft';
+
+  @override
+  String get productsEyebrow => 'НАШИ ПРОДУКТЫ';
+
+  @override
+  String get watchVideo => 'Смотреть видео';
+
+  @override
+  String get close => 'Закрыть';
+
+  @override
+  String get previousScreenshot => 'Предыдущий скриншот';
+
+  @override
+  String get nextScreenshot => 'Следующий скриншот';
+
+  @override
+  String get screenshotsSoon => 'Скриншоты скоро появятся';
+
+  @override
+  String get whyUsEyebrow => 'ПОЧЕМУ ВЫБИРАЮТ НАС';
+
+  @override
+  String get aboutEyebrow => 'О НАС';
+
+  @override
+  String get aboutText =>
+      'Мы молодой стартап и создаём десктопные приложения, которые можно скачать и использовать бесплатно, без рекламы и подписок. Всё работает локально, а ваша обратная связь помогает нам делать продукты лучше.';
+
+  @override
+  String get aboutStep1Title => 'Планируйте проекты';
+
+  @override
+  String get aboutStep1Detail =>
+      'Раскладывайте задачи и связывайте заметки на досках в DoSka.';
+
+  @override
+  String get aboutStep2Title => 'Составляйте расписания';
+
+  @override
+  String get aboutStep2Detail =>
+      'Ведите смены, отпуска и встречи в календаре Time Filler.';
+
+  @override
+  String get aboutStep3Title => 'Показывайте результат';
+
+  @override
+  String get aboutStep3Detail =>
+      'Записывайте экран со звуком и подписями в Clip Ink.';
+
+  @override
+  String get ctaTitle => 'Попробуйте наши приложения уже сегодня';
+
+  @override
+  String get ctaSubtitle =>
+      'Бесплатно, без подписки и регистрации. Кнопки ведут на последние версии.';
+
+  @override
+  String get partnersEyebrow => 'ПАРТНЕРЫ';
+
+  @override
+  String get blogEyebrow => 'ПОЛЕЗНОЕ';
+
+  @override
+  String get readMore => 'Читать';
+
+  @override
+  String get blog1Tag => 'МЕТОДОЛОГИИ';
+
+  @override
+  String get blog1Title => 'Что такое MVP и зачем он нужен';
+
+  @override
+  String get blog1Summary => 'Как проверить идею продукта без лишних затрат.';
+
+  @override
+  String get blog1Content =>
+      'MVP — минимально жизнеспособный продукт. Его цель — проверить ключевую гипотезу с минимальным набором возможностей. Начните с основной задачи пользователя, выпустите первую версию и соберите обратную связь, прежде чем расширять функциональность.';
+
+  @override
+  String get blog2Tag => 'ПРОДУКТИВНОСТЬ';
+
+  @override
+  String get blog2Title => 'Как управлять рабочим временем';
+
+  @override
+  String get blog2Summary =>
+      'Практические принципы фокусировки и учёта времени.';
+
+  @override
+  String get blog2Content =>
+      'Выделяйте приоритетные задачи, фиксируйте фактически затраченное время и регулярно сравнивайте план с результатом. Учёт времени нужен не для тотального контроля, а для понимания нагрузки и поиска возможностей улучшения.';
+
+  @override
+  String get blog3Tag => 'ПРОЕКТЫ';
+
+  @override
+  String get blog3Title => 'Как организовать работу команды';
+
+  @override
+  String get blog3Summary =>
+      'Простая система задач, статусов и ответственности.';
+
+  @override
+  String get blog3Content =>
+      'Определите цель проекта, разбейте работу на понятные задачи и назначьте ответственных. Регулярно обновляйте статусы и обсуждайте препятствия. Общая доска помогает команде видеть прогресс и не терять договорённости.';
+
+  @override
+  String get blog4Tag => 'АНАЛИТИКА';
+
+  @override
+  String get blog4Title => 'Зачем анализировать затраты времени';
+
+  @override
+  String get blog4Summary => 'Как находить узкие места в ежедневной работе.';
+
+  @override
+  String get blog4Content =>
+      'Сопоставляйте время с типами задач и этапами проектов. Анализируйте тенденции за недели, а не только отдельные дни. Это помогает точнее оценивать сроки, распределять нагрузку и улучшать процессы.';
+
+  @override
+  String screenshotLabel(String app, int number) {
+    return 'Скриншот $app, номер $number';
+  }
+
+  @override
+  String downloadApp(String app) {
+    return 'Скачать $app';
+  }
 }

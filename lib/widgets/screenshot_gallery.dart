@@ -1,296 +1,288 @@
 import 'package:flutter/material.dart';
 
 import '../l10n/generated/app_localizations.dart';
+import '../models/app_model.dart';
+import '../utils/app_theme.dart';
 
+/// Галерея скриншотов в рамке окна. На телефоне листается пальцем,
+/// на компьютере кнопками. По нажатию скриншот открывается на весь экран.
 class ScreenshotGallery extends StatefulWidget {
-  final List<String> screenshots;
-  final Color accentColor;
+  final AppModel app;
 
-  const ScreenshotGallery({
-    super.key,
-    required this.screenshots,
-    required this.accentColor,
-  });
+  const ScreenshotGallery({super.key, required this.app});
 
   @override
   State<ScreenshotGallery> createState() => _ScreenshotGalleryState();
 }
 
 class _ScreenshotGalleryState extends State<ScreenshotGallery> {
-  int _currentIndex = 0;
-  late PageController _pageController;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
+  final PageController _controller = PageController();
+  int _index = 0;
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 600;
-    final isTablet = screenWidth >= 600 && screenWidth < 1200;
-    final isDesktop = screenWidth >= 1200;
+  void _goTo(int index) {
+    _controller.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 280),
+      curve: Curves.easeOut,
+    );
+  }
 
-    double getHeight() {
-      if (isMobile) return 200;
-      if (isTablet) return 350;
-      return 450;
-    }
-
-    double getThumbnailSize() {
-      if (isMobile) return 50;
-      if (isTablet) return 70;
-      return 80;
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Заголовок
-        Row(
+  void _openFullScreen(String path, String label) {
+    showDialog<void>(
+      context: context,
+      builder: (dialogContext) => Dialog.fullscreen(
+        backgroundColor: Colors.black,
+        child: Stack(
+          fit: StackFit.expand,
           children: [
-            Text(
-              AppLocalizations.of(context).galleryTitle,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+            InteractiveViewer(
+              maxScale: 4,
+              child: Image.asset(path, semanticLabel: label),
             ),
-            const Spacer(),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: widget.accentColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                '${_currentIndex + 1} / ${widget.screenshots.length}',
-                style: TextStyle(
-                  color: widget.accentColor,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
+            SafeArea(
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: IconButton.filledTonal(
+                    tooltip: AppLocalizations.of(context).close,
+                    onPressed: () => Navigator.pop(dialogContext),
+                    icon: const Icon(Icons.close_rounded),
+                  ),
                 ),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 12),
+      ),
+    );
+  }
 
-        // Основная карусель
-        SizedBox(
-          height: getHeight(),
-          child: Stack(
-            children: [
-              PageView.builder(
-                controller: _pageController,
-                onPageChanged: (index) {
-                  setState(() => _currentIndex = index);
-                },
-                itemCount: widget.screenshots.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: _buildScreenshotImage(
-                        widget.screenshots[index],
-                        widget.accentColor,
-                      ),
-                    ),
-                  );
-                },
+  @override
+  Widget build(BuildContext context) {
+    final strings = AppLocalizations.of(context);
+    final scheme = Theme.of(context).colorScheme;
+    final colors = SiteColors.of(context);
+    final app = widget.app;
+    final images = app.screenshots(context);
+
+    return Column(
+      children: [
+        Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: scheme.shadow,
+                blurRadius: 18,
+                offset: const Offset(0, 8),
               ),
-
-              // Навигационные кнопки
-              if (!isMobile)
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  top: 0,
-                  bottom: 0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (_currentIndex > 0)
-                        _buildNavButton(Icons.chevron_left, () {
-                          _pageController.previousPage(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
-                          );
-                        }),
-                      const Spacer(),
-                      if (_currentIndex < widget.screenshots.length - 1)
-                        _buildNavButton(Icons.chevron_right, () {
-                          _pageController.nextPage(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
-                          );
-                        }),
-                    ],
-                  ),
-                ),
-
-              // Индикаторы
-              Positioned(
-                bottom: 12,
-                left: 0,
-                right: 0,
+            ],
+          ),
+          child: Column(
+            children: [
+              Container(
+                height: 33,
+                color: colors.windowBar,
+                padding: const EdgeInsets.symmetric(horizontal: 13),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    widget.screenshots.length,
-                    (index) => GestureDetector(
-                      onTap: () {
-                        _pageController.animateToPage(
-                          index,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        );
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        width: _currentIndex == index ? 24 : 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: _currentIndex == index
-                              ? widget.accentColor
-                              : Colors.white.withValues(alpha: 0.5),
+                  children: [
+                    for (final dot in const [
+                      Color(0xFFFFB2C6),
+                      Color(0xFFFFDFA0),
+                      Color(0xFFBFE8CD),
+                    ]) ...[
+                      Icon(Icons.circle, size: 9, color: dot),
+                      const SizedBox(width: 5),
+                    ],
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        images.isEmpty
+                            ? app.title
+                            : '${app.title}  /  ${_index + 1} – ${images.length}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
-                  ),
+                  ],
+                ),
+              ),
+              AspectRatio(
+                aspectRatio: 16 / 9,
+                child: ColoredBox(
+                  color: colors.windowBackground,
+                  child: images.isEmpty
+                      ? _Placeholder(app: app)
+                      : Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            PageView.builder(
+                              controller: _controller,
+                              itemCount: images.length,
+                              onPageChanged: (index) =>
+                                  setState(() => _index = index),
+                              itemBuilder: (context, index) {
+                                final label = strings.screenshotLabel(
+                                  app.title,
+                                  index + 1,
+                                );
+                                return Semantics(
+                                  button: true,
+                                  label: label,
+                                  child: InkWell(
+                                    onTap: () => _openFullScreen(
+                                      images[index],
+                                      label,
+                                    ),
+                                    child: Image.asset(
+                                      images[index],
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            if (_index > 0)
+                              _Arrow(
+                                alignment: Alignment.centerLeft,
+                                icon: Icons.chevron_left_rounded,
+                                tooltip: strings.previousScreenshot,
+                                onPressed: () => _goTo(_index - 1),
+                              ),
+                            if (_index < images.length - 1)
+                              _Arrow(
+                                alignment: Alignment.centerRight,
+                                icon: Icons.chevron_right_rounded,
+                                tooltip: strings.nextScreenshot,
+                                onPressed: () => _goTo(_index + 1),
+                              ),
+                          ],
+                        ),
                 ),
               ),
             ],
           ),
         ),
-
-        // Миниатюры
-        if (isDesktop || isTablet) ...[
-          const SizedBox(height: 12),
-          SizedBox(
-            height: getThumbnailSize(),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: widget.screenshots.length,
-              itemBuilder: (context, index) {
-                final isActive = _currentIndex == index;
-                return GestureDetector(
-                  onTap: () {
-                    _pageController.animateToPage(
-                      index,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.only(right: 8),
-                    width: getThumbnailSize() * 1.3,
-                    height: getThumbnailSize(),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color:
-                            isActive ? widget.accentColor : Colors.grey[300]!,
-                        width: isActive ? 3 : 1,
-                      ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: _buildScreenshotImage(
-                        widget.screenshots[index],
-                        widget.accentColor,
-                        isThumbnail: true,
+        if (images.length > 1) ...[
+          const SizedBox(height: 4),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (var i = 0; i < images.length; i++)
+                Semantics(
+                  button: true,
+                  selected: i == _index,
+                  label: strings.screenshotLabel(app.title, i + 1),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(16),
+                    onTap: () => _goTo(i),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        width: i == _index ? 24 : 9,
+                        height: 9,
+                        decoration: BoxDecoration(
+                          color: i == _index
+                              ? app.accentColor(context)
+                              : scheme.outlineVariant,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                       ),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+            ],
           ),
         ],
       ],
     );
   }
+}
 
-  // Метод для создания изображения с загрузкой
-  Widget _buildScreenshotImage(String path, Color accentColor,
-      {bool isThumbnail = false}) {
-    return FutureBuilder(
-      future: _loadImage(path),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            color: Colors.grey[200],
-            child: Center(
-              child: CircularProgressIndicator(
-                color: accentColor,
-                strokeWidth: 2,
-              ),
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return Container(
-            color: Colors.grey[200],
-            child: const Center(
-              child: Icon(
-                Icons.broken_image,
-                size: 40,
-                color: Colors.grey,
-              ),
-            ),
-          );
-        } else {
-          return Image.asset(
-            path,
-            fit: isThumbnail ? BoxFit.cover : BoxFit.cover,
-            width: double.infinity,
-            errorBuilder: (_, __, ___) => Container(
-              color: Colors.grey[200],
-              child: const Center(
-                child: Icon(
-                  Icons.broken_image,
-                  size: 40,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-          );
-        }
-      },
+class _Arrow extends StatelessWidget {
+  final Alignment alignment;
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback onPressed;
+
+  const _Arrow({
+    required this.alignment,
+    required this.icon,
+    required this.tooltip,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: alignment,
+      child: Padding(
+        padding: const EdgeInsets.all(6),
+        child: IconButton(
+          tooltip: tooltip,
+          onPressed: onPressed,
+          color: Colors.white,
+          style: IconButton.styleFrom(
+            backgroundColor: Colors.black.withValues(alpha: 0.5),
+          ),
+          icon: Icon(icon),
+        ),
+      ),
     );
   }
+}
 
-  // Имитация загрузки (можно заменить на реальную загрузку)
-  Future<void> _loadImage(String path) async {
-    // Имитация задержки загрузки
-    await Future.delayed(const Duration(milliseconds: 300));
-    return;
-  }
+/// Заглушка для приложения, у которого ещё нет скриншотов.
+class _Placeholder extends StatelessWidget {
+  final AppModel app;
 
-  Widget _buildNavButton(IconData icon, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8),
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: 0.5),
-          shape: BoxShape.circle,
+  const _Placeholder({required this.app});
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final colors = SiteColors.of(context);
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: colors.mascotGradient,
         ),
-        child: Icon(
-          icon,
-          color: Colors.white,
-          size: 28,
+      ),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(app.fallbackIcon, size: 56, color: app.accentColor(context)),
+              const SizedBox(height: 8),
+              Text(
+                AppLocalizations.of(context).screenshotsSoon,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: scheme.onSurface,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

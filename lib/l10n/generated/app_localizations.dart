@@ -98,12 +98,6 @@ abstract class AppLocalizations {
     Locale('ru')
   ];
 
-  /// No description provided for @supportTooltip.
-  ///
-  /// In ru, this message translates to:
-  /// **'Поддержка ВКонтакте'**
-  String get supportTooltip;
-
   /// No description provided for @otherLanguageLabel.
   ///
   /// In ru, this message translates to:
@@ -134,23 +128,11 @@ abstract class AppLocalizations {
   /// **'Локальное ПО для\nпродуктивной работы'**
   String get heroTitle;
 
-  /// No description provided for @heroSubtitleMobile.
-  ///
-  /// In ru, this message translates to:
-  /// **'Бесплатные приложения для Windows,\nработающие полностью автономно'**
-  String get heroSubtitleMobile;
-
   /// No description provided for @heroSubtitle.
   ///
   /// In ru, this message translates to:
-  /// **'Бесплатные приложения для Windows, которые работают полностью автономно.\nВаши данные — только на вашем компьютере.'**
+  /// **'Бесплатные приложения для Windows, которые работают полностью автономно. Ваши данные — только на вашем компьютере.'**
   String get heroSubtitle;
-
-  /// No description provided for @heroBadgeMobile.
-  ///
-  /// In ru, this message translates to:
-  /// **'Бесплатно • Без подписки'**
-  String get heroBadgeMobile;
 
   /// No description provided for @heroBadge.
   ///
@@ -158,34 +140,10 @@ abstract class AppLocalizations {
   /// **'Бесплатно • Без подписки • Полная автономность'**
   String get heroBadge;
 
-  /// No description provided for @productsTitle.
-  ///
-  /// In ru, this message translates to:
-  /// **'Программные продукты'**
-  String get productsTitle;
-
-  /// No description provided for @partnersTitle.
-  ///
-  /// In ru, this message translates to:
-  /// **'Партнеры'**
-  String get partnersTitle;
-
-  /// No description provided for @whyUsTitle.
-  ///
-  /// In ru, this message translates to:
-  /// **'Почему выбирают нас'**
-  String get whyUsTitle;
-
-  /// No description provided for @whyUsSubtitleMobile.
-  ///
-  /// In ru, this message translates to:
-  /// **'Приложения от Pudra Soft для продуктивной работы\nс полной приватностью'**
-  String get whyUsSubtitleMobile;
-
   /// No description provided for @whyUsSubtitle.
   ///
   /// In ru, this message translates to:
-  /// **'Приложения от Pudra Soft созданы для продуктивной работы\nс полной приватностью ваших данных'**
+  /// **'Приложения от Pudra Soft созданы для продуктивной работы с полной приватностью ваших данных.'**
   String get whyUsSubtitle;
 
   /// No description provided for @descriptionTitle.
@@ -193,24 +151,6 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Описание'**
   String get descriptionTitle;
-
-  /// No description provided for @galleryTitle.
-  ///
-  /// In ru, this message translates to:
-  /// **'Галерея'**
-  String get galleryTitle;
-
-  /// No description provided for @featuresTitle.
-  ///
-  /// In ru, this message translates to:
-  /// **'Ключевые возможности'**
-  String get featuresTitle;
-
-  /// No description provided for @benefitsTitle.
-  ///
-  /// In ru, this message translates to:
-  /// **'Преимущества'**
-  String get benefitsTitle;
 
   /// No description provided for @versionsTitle.
   ///
@@ -223,12 +163,6 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Часто задаваемые вопросы'**
   String get faqTitle;
-
-  /// No description provided for @download.
-  ///
-  /// In ru, this message translates to:
-  /// **'Скачать'**
-  String get download;
 
   /// No description provided for @downloadFree.
   ///
@@ -455,31 +389,31 @@ abstract class AppLocalizations {
   /// No description provided for @doskaFeature1.
   ///
   /// In ru, this message translates to:
-  /// **'📋 Иерархические списки задач (WBS)'**
+  /// **'Иерархические списки задач (WBS)'**
   String get doskaFeature1;
 
   /// No description provided for @doskaFeature2.
   ///
   /// In ru, this message translates to:
-  /// **'📝 Сбор пользовательских историй'**
+  /// **'Сбор пользовательских историй'**
   String get doskaFeature2;
 
   /// No description provided for @doskaFeature3.
   ///
   /// In ru, this message translates to:
-  /// **'🔗 Связи между заметками'**
+  /// **'Связи между заметками'**
   String get doskaFeature3;
 
   /// No description provided for @doskaFeature4.
   ///
   /// In ru, this message translates to:
-  /// **'✅ Чек-листы'**
+  /// **'Чек-листы'**
   String get doskaFeature4;
 
   /// No description provided for @doskaFeature5.
   ///
   /// In ru, this message translates to:
-  /// **'🎨 Управление временем выполнения'**
+  /// **'Управление временем выполнения'**
   String get doskaFeature5;
 
   /// No description provided for @doskaBenefit1.
@@ -581,31 +515,31 @@ abstract class AppLocalizations {
   /// No description provided for @timeFillerFeature1.
   ///
   /// In ru, this message translates to:
-  /// **'📅 Графики смен (2 через 2, 5/2)'**
+  /// **'Графики смен (2 через 2, 5/2)'**
   String get timeFillerFeature1;
 
   /// No description provided for @timeFillerFeature2.
   ///
   /// In ru, this message translates to:
-  /// **'🏖️ Управление отпусками сотрудников'**
+  /// **'Управление отпусками сотрудников'**
   String get timeFillerFeature2;
 
   /// No description provided for @timeFillerFeature3.
   ///
   /// In ru, this message translates to:
-  /// **'👥 Запись клиентов и встреч'**
+  /// **'Запись клиентов и встреч'**
   String get timeFillerFeature3;
 
   /// No description provided for @timeFillerFeature4.
   ///
   /// In ru, this message translates to:
-  /// **'🔄 Поддержка спринтов'**
+  /// **'Поддержка спринтов'**
   String get timeFillerFeature4;
 
   /// No description provided for @timeFillerFeature5.
   ///
   /// In ru, this message translates to:
-  /// **'🎯 Фильтрация по категориям'**
+  /// **'Фильтрация по категориям'**
   String get timeFillerFeature5;
 
   /// No description provided for @timeFillerBenefit1.
@@ -707,31 +641,31 @@ abstract class AppLocalizations {
   /// No description provided for @clipInkFeature1.
   ///
   /// In ru, this message translates to:
-  /// **'🖼️ Рамка, весь экран или окно'**
+  /// **'Рамка, весь экран или окно'**
   String get clipInkFeature1;
 
   /// No description provided for @clipInkFeature2.
   ///
   /// In ru, this message translates to:
-  /// **'🎙️ Микрофон и системный звук'**
+  /// **'Микрофон и системный звук'**
   String get clipInkFeature2;
 
   /// No description provided for @clipInkFeature3.
   ///
   /// In ru, this message translates to:
-  /// **'✏️ Рисование и подписи'**
+  /// **'Рисование и подписи'**
   String get clipInkFeature3;
 
   /// No description provided for @clipInkFeature4.
   ///
   /// In ru, this message translates to:
-  /// **'⏸️ Пауза без рассинхронизации'**
+  /// **'Пауза без рассинхронизации'**
   String get clipInkFeature4;
 
   /// No description provided for @clipInkFeature5.
   ///
   /// In ru, this message translates to:
-  /// **'🎞️ 15, 24, 30 или 60 кадров/с'**
+  /// **'15, 24, 30 или 60 кадров/с'**
   String get clipInkFeature5;
 
   /// No description provided for @clipInkBenefit1.
@@ -811,6 +745,306 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Нет. Если пишете и микрофон, и звук с монитора, используйте наушники.'**
   String get clipInkFaq4Answer;
+
+  /// No description provided for @brandTagline.
+  ///
+  /// In ru, this message translates to:
+  /// **'Локальные приложения для Windows'**
+  String get brandTagline;
+
+  /// No description provided for @navProducts.
+  ///
+  /// In ru, this message translates to:
+  /// **'Продукты'**
+  String get navProducts;
+
+  /// No description provided for @navBenefits.
+  ///
+  /// In ru, this message translates to:
+  /// **'Преимущества'**
+  String get navBenefits;
+
+  /// No description provided for @navAbout.
+  ///
+  /// In ru, this message translates to:
+  /// **'О нас'**
+  String get navAbout;
+
+  /// No description provided for @navBlog.
+  ///
+  /// In ru, this message translates to:
+  /// **'Блог'**
+  String get navBlog;
+
+  /// No description provided for @navContacts.
+  ///
+  /// In ru, this message translates to:
+  /// **'Контакты'**
+  String get navContacts;
+
+  /// No description provided for @contactUs.
+  ///
+  /// In ru, this message translates to:
+  /// **'Связаться'**
+  String get contactUs;
+
+  /// No description provided for @menuTooltip.
+  ///
+  /// In ru, this message translates to:
+  /// **'Меню'**
+  String get menuTooltip;
+
+  /// No description provided for @backToTop.
+  ///
+  /// In ru, this message translates to:
+  /// **'Наверх'**
+  String get backToTop;
+
+  /// No description provided for @heroActionProducts.
+  ///
+  /// In ru, this message translates to:
+  /// **'Смотреть продукты'**
+  String get heroActionProducts;
+
+  /// No description provided for @heroActionAbout.
+  ///
+  /// In ru, this message translates to:
+  /// **'О нас'**
+  String get heroActionAbout;
+
+  /// No description provided for @mascotLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Спонж — маскот Pudra Soft'**
+  String get mascotLabel;
+
+  /// No description provided for @productsEyebrow.
+  ///
+  /// In ru, this message translates to:
+  /// **'НАШИ ПРОДУКТЫ'**
+  String get productsEyebrow;
+
+  /// No description provided for @watchVideo.
+  ///
+  /// In ru, this message translates to:
+  /// **'Смотреть видео'**
+  String get watchVideo;
+
+  /// No description provided for @close.
+  ///
+  /// In ru, this message translates to:
+  /// **'Закрыть'**
+  String get close;
+
+  /// No description provided for @previousScreenshot.
+  ///
+  /// In ru, this message translates to:
+  /// **'Предыдущий скриншот'**
+  String get previousScreenshot;
+
+  /// No description provided for @nextScreenshot.
+  ///
+  /// In ru, this message translates to:
+  /// **'Следующий скриншот'**
+  String get nextScreenshot;
+
+  /// No description provided for @screenshotsSoon.
+  ///
+  /// In ru, this message translates to:
+  /// **'Скриншоты скоро появятся'**
+  String get screenshotsSoon;
+
+  /// No description provided for @whyUsEyebrow.
+  ///
+  /// In ru, this message translates to:
+  /// **'ПОЧЕМУ ВЫБИРАЮТ НАС'**
+  String get whyUsEyebrow;
+
+  /// No description provided for @aboutEyebrow.
+  ///
+  /// In ru, this message translates to:
+  /// **'О НАС'**
+  String get aboutEyebrow;
+
+  /// No description provided for @aboutText.
+  ///
+  /// In ru, this message translates to:
+  /// **'Мы молодой стартап и создаём десктопные приложения, которые можно скачать и использовать бесплатно, без рекламы и подписок. Всё работает локально, а ваша обратная связь помогает нам делать продукты лучше.'**
+  String get aboutText;
+
+  /// No description provided for @aboutStep1Title.
+  ///
+  /// In ru, this message translates to:
+  /// **'Планируйте проекты'**
+  String get aboutStep1Title;
+
+  /// No description provided for @aboutStep1Detail.
+  ///
+  /// In ru, this message translates to:
+  /// **'Раскладывайте задачи и связывайте заметки на досках в DoSka.'**
+  String get aboutStep1Detail;
+
+  /// No description provided for @aboutStep2Title.
+  ///
+  /// In ru, this message translates to:
+  /// **'Составляйте расписания'**
+  String get aboutStep2Title;
+
+  /// No description provided for @aboutStep2Detail.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ведите смены, отпуска и встречи в календаре Time Filler.'**
+  String get aboutStep2Detail;
+
+  /// No description provided for @aboutStep3Title.
+  ///
+  /// In ru, this message translates to:
+  /// **'Показывайте результат'**
+  String get aboutStep3Title;
+
+  /// No description provided for @aboutStep3Detail.
+  ///
+  /// In ru, this message translates to:
+  /// **'Записывайте экран со звуком и подписями в Clip Ink.'**
+  String get aboutStep3Detail;
+
+  /// No description provided for @ctaTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Попробуйте наши приложения уже сегодня'**
+  String get ctaTitle;
+
+  /// No description provided for @ctaSubtitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Бесплатно, без подписки и регистрации. Кнопки ведут на последние версии.'**
+  String get ctaSubtitle;
+
+  /// No description provided for @partnersEyebrow.
+  ///
+  /// In ru, this message translates to:
+  /// **'ПАРТНЕРЫ'**
+  String get partnersEyebrow;
+
+  /// No description provided for @blogEyebrow.
+  ///
+  /// In ru, this message translates to:
+  /// **'ПОЛЕЗНОЕ'**
+  String get blogEyebrow;
+
+  /// No description provided for @readMore.
+  ///
+  /// In ru, this message translates to:
+  /// **'Читать'**
+  String get readMore;
+
+  /// No description provided for @blog1Tag.
+  ///
+  /// In ru, this message translates to:
+  /// **'МЕТОДОЛОГИИ'**
+  String get blog1Tag;
+
+  /// No description provided for @blog1Title.
+  ///
+  /// In ru, this message translates to:
+  /// **'Что такое MVP и зачем он нужен'**
+  String get blog1Title;
+
+  /// No description provided for @blog1Summary.
+  ///
+  /// In ru, this message translates to:
+  /// **'Как проверить идею продукта без лишних затрат.'**
+  String get blog1Summary;
+
+  /// No description provided for @blog1Content.
+  ///
+  /// In ru, this message translates to:
+  /// **'MVP — минимально жизнеспособный продукт. Его цель — проверить ключевую гипотезу с минимальным набором возможностей. Начните с основной задачи пользователя, выпустите первую версию и соберите обратную связь, прежде чем расширять функциональность.'**
+  String get blog1Content;
+
+  /// No description provided for @blog2Tag.
+  ///
+  /// In ru, this message translates to:
+  /// **'ПРОДУКТИВНОСТЬ'**
+  String get blog2Tag;
+
+  /// No description provided for @blog2Title.
+  ///
+  /// In ru, this message translates to:
+  /// **'Как управлять рабочим временем'**
+  String get blog2Title;
+
+  /// No description provided for @blog2Summary.
+  ///
+  /// In ru, this message translates to:
+  /// **'Практические принципы фокусировки и учёта времени.'**
+  String get blog2Summary;
+
+  /// No description provided for @blog2Content.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выделяйте приоритетные задачи, фиксируйте фактически затраченное время и регулярно сравнивайте план с результатом. Учёт времени нужен не для тотального контроля, а для понимания нагрузки и поиска возможностей улучшения.'**
+  String get blog2Content;
+
+  /// No description provided for @blog3Tag.
+  ///
+  /// In ru, this message translates to:
+  /// **'ПРОЕКТЫ'**
+  String get blog3Tag;
+
+  /// No description provided for @blog3Title.
+  ///
+  /// In ru, this message translates to:
+  /// **'Как организовать работу команды'**
+  String get blog3Title;
+
+  /// No description provided for @blog3Summary.
+  ///
+  /// In ru, this message translates to:
+  /// **'Простая система задач, статусов и ответственности.'**
+  String get blog3Summary;
+
+  /// No description provided for @blog3Content.
+  ///
+  /// In ru, this message translates to:
+  /// **'Определите цель проекта, разбейте работу на понятные задачи и назначьте ответственных. Регулярно обновляйте статусы и обсуждайте препятствия. Общая доска помогает команде видеть прогресс и не терять договорённости.'**
+  String get blog3Content;
+
+  /// No description provided for @blog4Tag.
+  ///
+  /// In ru, this message translates to:
+  /// **'АНАЛИТИКА'**
+  String get blog4Tag;
+
+  /// No description provided for @blog4Title.
+  ///
+  /// In ru, this message translates to:
+  /// **'Зачем анализировать затраты времени'**
+  String get blog4Title;
+
+  /// No description provided for @blog4Summary.
+  ///
+  /// In ru, this message translates to:
+  /// **'Как находить узкие места в ежедневной работе.'**
+  String get blog4Summary;
+
+  /// No description provided for @blog4Content.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сопоставляйте время с типами задач и этапами проектов. Анализируйте тенденции за недели, а не только отдельные дни. Это помогает точнее оценивать сроки, распределять нагрузку и улучшать процессы.'**
+  String get blog4Content;
+
+  /// No description provided for @screenshotLabel.
+  ///
+  /// In ru, this message translates to:
+  /// **'Скриншот {app}, номер {number}'**
+  String screenshotLabel(String app, int number);
+
+  /// No description provided for @downloadApp.
+  ///
+  /// In ru, this message translates to:
+  /// **'Скачать {app}'**
+  String downloadApp(String app);
 }
 
 class _AppLocalizationsDelegate

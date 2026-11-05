@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../models/partner.dart';
 import '../utils/app_theme.dart';
+import '../utils/constants.dart';
 
+/// Карточка партнёра со ссылкой на его сайт.
 class PartnerCard extends StatelessWidget {
   final Partner partner;
 
@@ -11,89 +12,77 @@ class PartnerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 600;
-    final colorScheme = Theme.of(context).colorScheme;
-    return Card(
-      elevation: 4,
+    final scheme = Theme.of(context).colorScheme;
+    final colors = SiteColors.of(context);
+    final site = partner.websiteUrl
+        .replaceAll('https://', '')
+        .replaceAll('http://', '')
+        .replaceAll('/', '');
+
+    return Material(
+      color: scheme.surfaceContainerLowest,
+      clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(22),
+        side: BorderSide(color: colors.cardBorder),
       ),
       child: InkWell(
-        onTap: () {
-          launchUrl(Uri.parse(partner.websiteUrl),
-              mode: LaunchMode.externalApplication);
-        },
-        borderRadius: BorderRadius.circular(16),
+        onTap: () => LinkLauncher.launchUrlString(partner.websiteUrl),
         child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Логотип партнёра (слева)
-                Container(
-                  width: isMobile ? 60 : 80,
-                  height: isMobile ? 60 : 80,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: isMobile ? 8 : 10,
-                    vertical: isMobile ? 8 : 10,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.of(context).logoBackground,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      AppImages.of(context).image(partner.logoFile),
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 68,
+                height: 68,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: colors.logoBackground,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: colors.cardBorder),
+                ),
+                child: Image.asset(
+                  AppImages.of(context).image(partner.logoFile),
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      partner.name,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 16,
+                        color: scheme.onSurface,
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 3),
+                    Text(
+                      site,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: scheme.primary,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      partner.description,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: scheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 16),
-                // Правая часть с информацией
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Название партнёра
-                      Text(
-                        partner.name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: colorScheme.onSurface,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      // Ссылка на сайт
-                      Text(
-                        partner.websiteUrl
-                            .replaceAll('https://', '')
-                            .replaceAll('http://', '')
-                            .replaceAll('/', ''),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: colorScheme.outline,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 8),
-                      // Описание
-                      Text(
-                        partner.description,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: colorScheme.outline,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            )),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

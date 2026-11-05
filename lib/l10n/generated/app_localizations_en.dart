@@ -9,9 +9,6 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get supportTooltip => 'Support on VK';
-
-  @override
   String get otherLanguageLabel => 'RU';
 
   @override
@@ -27,56 +24,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get heroTitle => 'Local software for\nproductive work';
 
   @override
-  String get heroSubtitleMobile =>
-      'Free Windows apps\nthat work completely offline';
-
-  @override
   String get heroSubtitle =>
-      'Free Windows apps that work completely offline.\nYour data stays on your computer.';
-
-  @override
-  String get heroBadgeMobile => 'Free • No subscription';
+      'Free Windows apps that work completely offline. Your data stays on your computer.';
 
   @override
   String get heroBadge => 'Free • No subscription • Fully offline';
 
   @override
-  String get productsTitle => 'Software products';
-
-  @override
-  String get partnersTitle => 'Partners';
-
-  @override
-  String get whyUsTitle => 'Why choose us';
-
-  @override
-  String get whyUsSubtitleMobile =>
-      'Pudra Soft apps for productive work\nwith complete privacy';
-
-  @override
   String get whyUsSubtitle =>
-      'Pudra Soft apps are built for productive work\nwith complete privacy for your data';
+      'Pudra Soft apps are built for productive work with complete privacy for your data.';
 
   @override
   String get descriptionTitle => 'Description';
-
-  @override
-  String get galleryTitle => 'Gallery';
-
-  @override
-  String get featuresTitle => 'Key features';
-
-  @override
-  String get benefitsTitle => 'Benefits';
 
   @override
   String get versionsTitle => 'Versions';
 
   @override
   String get faqTitle => 'Frequently asked questions';
-
-  @override
-  String get download => 'Download';
 
   @override
   String get downloadFree => 'Download for free';
@@ -220,19 +185,19 @@ class AppLocalizationsEn extends AppLocalizations {
       'DoSka is a personal project builder for Windows. It is a simple yet powerful visual planning app that helps you structure any task, from a business process to a study project.\n\nThe app runs entirely locally, with no internet connection or cloud services, so all your data stays on your computer.\n\nUse it to collect user stories, visualize processes and process charts, and break down tasks of any complexity.';
 
   @override
-  String get doskaFeature1 => '📋 Hierarchical task lists (WBS)';
+  String get doskaFeature1 => 'Hierarchical task lists (WBS)';
 
   @override
-  String get doskaFeature2 => '📝 User story collection';
+  String get doskaFeature2 => 'User story collection';
 
   @override
-  String get doskaFeature3 => '🔗 Links between notes';
+  String get doskaFeature3 => 'Links between notes';
 
   @override
-  String get doskaFeature4 => '✅ Checklists';
+  String get doskaFeature4 => 'Checklists';
 
   @override
-  String get doskaFeature5 => '🎨 Time tracking';
+  String get doskaFeature5 => 'Time tracking';
 
   @override
   String get doskaBenefit1 => 'Fully offline (no internet or cloud)';
@@ -289,19 +254,19 @@ class AppLocalizationsEn extends AppLocalizations {
       'TimeFiller is a local scheduler for Windows, built for small teams. The app works completely offline, with no internet connection or cloud services, so all your data stays on your computer.\n\nUse it to manage employee vacations, book clients, plan meetings and recurring events, and organize work in sprints.';
 
   @override
-  String get timeFillerFeature1 => '📅 Shift schedules (2-on-2-off, 5/2)';
+  String get timeFillerFeature1 => 'Shift schedules (2-on-2-off, 5/2)';
 
   @override
-  String get timeFillerFeature2 => '🏖️ Employee vacation management';
+  String get timeFillerFeature2 => 'Employee vacation management';
 
   @override
-  String get timeFillerFeature3 => '👥 Client bookings and meetings';
+  String get timeFillerFeature3 => 'Client bookings and meetings';
 
   @override
-  String get timeFillerFeature4 => '🔄 Sprint support';
+  String get timeFillerFeature4 => 'Sprint support';
 
   @override
-  String get timeFillerFeature5 => '🎯 Filtering by category';
+  String get timeFillerFeature5 => 'Filtering by category';
 
   @override
   String get timeFillerBenefit1 => 'Fully offline (no internet or cloud)';
@@ -357,19 +322,19 @@ class AppLocalizationsEn extends AppLocalizations {
       'Clip Ink is a lightweight screen recorder for Windows. Move and resize the frame over the area you need, click \"Start recording\", and get a regular MP4 that opens in any player and uploads to any platform. The frame itself stays out of the video: only what is inside it gets recorded.\n\nRecord a custom area, the whole screen, or an app window, with sound from the microphone, the system, or both. You can draw and add captions while recording.';
 
   @override
-  String get clipInkFeature1 => '🖼️ Frame, full screen, or window';
+  String get clipInkFeature1 => 'Frame, full screen, or window';
 
   @override
-  String get clipInkFeature2 => '🎙️ Microphone and system audio';
+  String get clipInkFeature2 => 'Microphone and system audio';
 
   @override
-  String get clipInkFeature3 => '✏️ Drawing and captions';
+  String get clipInkFeature3 => 'Drawing and captions';
 
   @override
-  String get clipInkFeature4 => '⏸️ Pause without losing sync';
+  String get clipInkFeature4 => 'Pause without losing sync';
 
   @override
-  String get clipInkFeature5 => '🎞️ 15, 24, 30, or 60 fps';
+  String get clipInkFeature5 => '15, 24, 30, or 60 fps';
 
   @override
   String get clipInkBenefit1 =>
@@ -417,4 +382,170 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get clipInkFaq4Answer =>
       'No. If you record both the microphone and system audio, use headphones.';
+
+  @override
+  String get brandTagline => 'Local apps for Windows';
+
+  @override
+  String get navProducts => 'Products';
+
+  @override
+  String get navBenefits => 'Benefits';
+
+  @override
+  String get navAbout => 'About';
+
+  @override
+  String get navBlog => 'Blog';
+
+  @override
+  String get navContacts => 'Contacts';
+
+  @override
+  String get contactUs => 'Contact us';
+
+  @override
+  String get menuTooltip => 'Menu';
+
+  @override
+  String get backToTop => 'Back to top';
+
+  @override
+  String get heroActionProducts => 'View products';
+
+  @override
+  String get heroActionAbout => 'About us';
+
+  @override
+  String get mascotLabel => 'Sponge, the Pudra Soft mascot';
+
+  @override
+  String get productsEyebrow => 'OUR PRODUCTS';
+
+  @override
+  String get watchVideo => 'Watch video';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get previousScreenshot => 'Previous screenshot';
+
+  @override
+  String get nextScreenshot => 'Next screenshot';
+
+  @override
+  String get screenshotsSoon => 'Screenshots coming soon';
+
+  @override
+  String get whyUsEyebrow => 'WHY CHOOSE US';
+
+  @override
+  String get aboutEyebrow => 'ABOUT US';
+
+  @override
+  String get aboutText =>
+      'We are a young startup building desktop apps that you can download and use for free, with no ads or subscriptions. Everything runs locally, and your feedback helps us make the products better.';
+
+  @override
+  String get aboutStep1Title => 'Plan projects';
+
+  @override
+  String get aboutStep1Detail =>
+      'Break down tasks and link notes on boards in DoSka.';
+
+  @override
+  String get aboutStep2Title => 'Build schedules';
+
+  @override
+  String get aboutStep2Detail =>
+      'Manage shifts, vacations, and meetings in the Time Filler calendar.';
+
+  @override
+  String get aboutStep3Title => 'Show your results';
+
+  @override
+  String get aboutStep3Detail =>
+      'Record your screen with sound and captions in Clip Ink.';
+
+  @override
+  String get ctaTitle => 'Try our apps today';
+
+  @override
+  String get ctaSubtitle =>
+      'Free, with no subscription or sign-up. The buttons lead to the latest versions.';
+
+  @override
+  String get partnersEyebrow => 'PARTNERS';
+
+  @override
+  String get blogEyebrow => 'USEFUL READS';
+
+  @override
+  String get readMore => 'Read';
+
+  @override
+  String get blog1Tag => 'METHODS';
+
+  @override
+  String get blog1Title => 'What an MVP is and why you need one';
+
+  @override
+  String get blog1Summary =>
+      'How to test a product idea without unnecessary costs.';
+
+  @override
+  String get blog1Content =>
+      'An MVP is a minimum viable product. Its goal is to test the key hypothesis with the smallest possible set of features. Start with the main user task, release a first version, and gather feedback before adding functionality.';
+
+  @override
+  String get blog2Tag => 'PRODUCTIVITY';
+
+  @override
+  String get blog2Title => 'How to manage your working time';
+
+  @override
+  String get blog2Summary =>
+      'Practical principles for focus and time tracking.';
+
+  @override
+  String get blog2Content =>
+      'Identify priority tasks, record the time you actually spend, and regularly compare the plan with the result. Time tracking is not about total control; it helps you understand your workload and find ways to improve.';
+
+  @override
+  String get blog3Tag => 'PROJECTS';
+
+  @override
+  String get blog3Title => 'How to organize team work';
+
+  @override
+  String get blog3Summary =>
+      'A simple system of tasks, statuses, and responsibility.';
+
+  @override
+  String get blog3Content =>
+      'Define the project goal, break the work into clear tasks, and assign owners. Update statuses regularly and discuss obstacles. A shared board helps the team see progress and keep track of agreements.';
+
+  @override
+  String get blog4Tag => 'ANALYTICS';
+
+  @override
+  String get blog4Title => 'Why analyze the time you spend';
+
+  @override
+  String get blog4Summary => 'How to find bottlenecks in your daily work.';
+
+  @override
+  String get blog4Content =>
+      'Match time against task types and project stages. Look at trends over weeks, not just individual days. This helps you estimate deadlines more accurately, distribute the workload, and improve processes.';
+
+  @override
+  String screenshotLabel(String app, int number) {
+    return '$app screenshot, number $number';
+  }
+
+  @override
+  String downloadApp(String app) {
+    return 'Download $app';
+  }
 }
