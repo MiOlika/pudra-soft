@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pudra_soft/widgets/screenshot_gallery.dart';
 
+import '../l10n/generated/app_localizations.dart';
 import '../models/app_model.dart';
 import '../utils/constants.dart';
+import 'app_releases_builder.dart';
+import 'versions_section.dart';
 import 'vk_video_player.dart';
 
 class ProductCard extends StatefulWidget {
@@ -19,8 +22,16 @@ class _ProductCardState extends State<ProductCard> {
 
   @override
   Widget build(BuildContext context) {
+    return AppReleasesBuilder(
+      app: widget.app,
+      builder: _buildCard,
+    );
+  }
+
+  Widget _buildCard(BuildContext context, AppReleases releases) {
     final colorScheme = Theme.of(context).colorScheme;
     final app = widget.app;
+    final strings = AppLocalizations.of(context);
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 800;
 
@@ -31,7 +42,7 @@ class _ProductCardState extends State<ProductCard> {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: app.primaryColor.withValues(alpha: 0.08),
+            color: app.accentColor(context).withValues(alpha: 0.08),
             blurRadius: 32,
             offset: const Offset(0, 8),
             spreadRadius: 0,
@@ -43,17 +54,17 @@ class _ProductCardState extends State<ProductCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Шапка с логотипом и названием
-          _buildHeader(context, app, colorScheme, isMobile),
+          _buildHeader(context, app, releases, colorScheme, isMobile),
           const SizedBox(height: 28),
 
           // Видео демонстрация
           if (app.videoPath != null && app.videoPath!.isNotEmpty) ...[
             Center(
               child: VkVideoPlayer(
-                accentColor: app.primaryColor,
+                accentColor: app.accentColor(context),
                 videoOwnerId: '-158779686',
                 videoId: app.videoPath!,
-                coverPath: app.screenshots[0],
+                coverPath: app.screenshots(context).first,
               ),
             ),
             const SizedBox(height: 28),
@@ -62,9 +73,9 @@ class _ProductCardState extends State<ProductCard> {
           // Описание
           _buildSectionTitle(
             context,
-            'Описание',
+            strings.descriptionTitle,
             Icons.description_outlined,
-            app.primaryColor,
+            app.accentColor(context),
             colorScheme,
           ),
           const SizedBox(height: 12),
@@ -79,15 +90,15 @@ class _ProductCardState extends State<ProductCard> {
           const SizedBox(height: 28),
 
           // Скриншоты
-          if (app.screenshots.isNotEmpty) ...[
+          if (app.screenshotFiles.isNotEmpty) ...[
             Center(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   maxWidth: isMobile ? double.infinity : 800,
                 ),
                 child: ScreenshotGallery(
-                  screenshots: app.screenshots,
-                  accentColor: app.primaryColor,
+                  screenshots: app.screenshots(context),
+                  accentColor: app.accentColor(context),
                 ),
               ),
             ),
@@ -97,9 +108,9 @@ class _ProductCardState extends State<ProductCard> {
           // Функции
           _buildSectionTitle(
             context,
-            'Ключевые возможности',
+            strings.featuresTitle,
             Icons.star_outline_rounded,
-            app.primaryColor,
+            app.accentColor(context),
             colorScheme,
           ),
           const SizedBox(height: 14),
@@ -113,16 +124,16 @@ class _ProductCardState extends State<ProductCard> {
                   vertical: 10,
                 ),
                 decoration: BoxDecoration(
-                  color: app.primaryColor.withValues(alpha: 0.08),
+                  color: app.accentColor(context).withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: app.primaryColor.withValues(alpha: 0.2),
+                    color: app.accentColor(context).withValues(alpha: 0.2),
                   ),
                 ),
                 child: Text(
                   feature,
                   style: TextStyle(
-                    color: app.primaryColor,
+                    color: app.accentColor(context),
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
@@ -135,9 +146,9 @@ class _ProductCardState extends State<ProductCard> {
           // Преимущества
           _buildSectionTitle(
             context,
-            'Преимущества',
+            strings.benefitsTitle,
             Icons.thumb_up_outlined,
-            app.primaryColor,
+            app.accentColor(context),
             colorScheme,
           ),
           const SizedBox(height: 14),
@@ -151,12 +162,12 @@ class _ProductCardState extends State<ProductCard> {
                     margin: const EdgeInsets.only(top: 2),
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: app.primaryColor.withValues(alpha: 0.1),
+                      color: app.accentColor(context).withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       Icons.check_rounded,
-                      color: app.primaryColor,
+                      color: app.accentColor(context),
                       size: 14,
                     ),
                   ),
@@ -177,13 +188,25 @@ class _ProductCardState extends State<ProductCard> {
           }),
           const SizedBox(height: 28),
 
+          // Версии и скачивание
+          _buildSectionTitle(
+            context,
+            strings.versionsTitle,
+            Icons.history_rounded,
+            app.accentColor(context),
+            colorScheme,
+          ),
+          const SizedBox(height: 14),
+          VersionsSection(key: ValueKey(app.id), releases: releases),
+          const SizedBox(height: 28),
+
           // ---------------------- СЕКЦИЯ: FAQ ----------------------
           if (app.faqs.isNotEmpty) ...[
             _buildSectionTitle(
               context,
-              'Часто задаваемые вопросы',
+              strings.faqTitle,
               Icons.help_outline_rounded,
-              app.primaryColor,
+              app.accentColor(context),
               colorScheme,
             ),
             const SizedBox(height: 16),
@@ -199,7 +222,7 @@ class _ProductCardState extends State<ProductCard> {
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
                     color: isExpanded
-                        ? app.primaryColor.withValues(alpha: 0.4)
+                        ? app.accentColor(context).withValues(alpha: 0.4)
                         : colorScheme.outlineVariant,
                   ),
                 ),
@@ -241,12 +264,12 @@ class _ProductCardState extends State<ProductCard> {
                       child: Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          color: app.primaryColor.withValues(alpha: 0.1),
+                          color: app.accentColor(context).withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           Icons.keyboard_arrow_down_rounded,
-                          color: app.primaryColor,
+                          color: app.accentColor(context),
                           size: 20,
                         ),
                       ),
@@ -276,17 +299,17 @@ class _ProductCardState extends State<ProductCard> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
-              onPressed: () => LinkLauncher.launchUrlString(app.downloadUrl),
+              onPressed: () => LinkLauncher.launchUrlString(releases.downloadUrl),
               icon: const Icon(Icons.download_rounded, size: 22),
-              label: const Text(
-                'Скачать бесплатно',
-                style: TextStyle(
+              label: Text(
+                strings.downloadFree,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: app.primaryColor,
+                backgroundColor: app.accentColor(context),
                 foregroundColor: colorScheme.onPrimary,
                 padding: const EdgeInsets.symmetric(vertical: 18),
                 elevation: 0,
@@ -304,6 +327,7 @@ class _ProductCardState extends State<ProductCard> {
   Widget _buildHeader(
     BuildContext context,
     AppModel app,
+    AppReleases releases,
     ColorScheme colorScheme,
     bool isMobile,
   ) {
@@ -313,10 +337,10 @@ class _ProductCardState extends State<ProductCard> {
           width: 72,
           height: 72,
           decoration: BoxDecoration(
-            color: app.primaryColor.withValues(alpha: 0.12),
+            color: app.accentColor(context).withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: app.primaryColor.withValues(alpha: 0.2),
+              color: app.accentColor(context).withValues(alpha: 0.2),
             ),
           ),
           child: ClipRRect(
@@ -324,10 +348,10 @@ class _ProductCardState extends State<ProductCard> {
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Image.asset(
-                app.logoPath,
+                app.logoPath(context),
                 errorBuilder: (_, __, ___) => Icon(
-                  Icons.apps,
-                  color: app.primaryColor,
+                  app.fallbackIcon,
+                  color: app.accentColor(context),
                   size: 40,
                 ),
               ),
@@ -351,7 +375,7 @@ class _ProductCardState extends State<ProductCard> {
               Text(
                 app.subtitle,
                 style: TextStyle(
-                  color: app.primaryColor,
+                  color: app.accentColor(context),
                   fontWeight: FontWeight.w600,
                   fontSize: 15,
                 ),
@@ -366,7 +390,7 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    'Версия ${app.version} для Windows',
+                    AppLocalizations.of(context).versionForWindows(releases.version),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: colorScheme.outline,
                         ),
@@ -380,12 +404,12 @@ class _ProductCardState extends State<ProductCard> {
     );
 
     final downloadButton = OutlinedButton.icon(
-      onPressed: () => LinkLauncher.launchUrlString(app.downloadUrl),
+      onPressed: () => LinkLauncher.launchUrlString(releases.downloadUrl),
       icon: const Icon(Icons.download_rounded, size: 18),
-      label: const Text('Скачать'),
+      label: Text(AppLocalizations.of(context).download),
       style: OutlinedButton.styleFrom(
-        foregroundColor: app.primaryColor,
-        side: BorderSide(color: app.primaryColor, width: 1.5),
+        foregroundColor: app.accentColor(context),
+        side: BorderSide(color: app.accentColor(context), width: 1.5),
         padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

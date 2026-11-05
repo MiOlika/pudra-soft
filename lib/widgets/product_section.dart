@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/generated/app_localizations.dart';
 import '../utils/constants.dart';
+import 'app_releases_builder.dart';
 import 'product_card.dart';
 
 class ProductSection extends StatefulWidget {
@@ -17,6 +19,8 @@ class _ProductSectionState extends State<ProductSection> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final bool isMobile = MediaQuery.of(context).size.width < 600;
+    final strings = AppLocalizations.of(context);
+    final apps = AppConstants.appsFor(strings);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -24,7 +28,7 @@ class _ProductSectionState extends State<ProductSection> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Text(
-            'Программные продукты',
+            strings.productsTitle,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: isMobile ? 22 : null,
@@ -41,7 +45,7 @@ class _ProductSectionState extends State<ProductSection> {
             scrollDirection: Axis.horizontal,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: AppConstants.allApps.asMap().entries.map((entry) {
+              children: apps.asMap().entries.map((entry) {
                 final index = entry.key;
                 final app = entry.value;
                 final isSelected = _selectedIndex == index;
@@ -68,7 +72,7 @@ class _ProductSectionState extends State<ProductSection> {
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
                           color: isSelected
-                              ? app.primaryColor
+                              ? app.accentColor(context)
                               : colorScheme.outlineVariant,
                           width: isSelected ? 2.5 : 1.5,
                         ),
@@ -76,7 +80,7 @@ class _ProductSectionState extends State<ProductSection> {
                             ? [
                                 BoxShadow(
                                   color:
-                                      app.primaryColor.withValues(alpha: 0.3),
+                                      app.accentColor(context).withValues(alpha: 0.3),
                                   blurRadius: 16,
                                   offset: const Offset(0, 4),
                                   spreadRadius: 2,
@@ -98,19 +102,19 @@ class _ProductSectionState extends State<ProductSection> {
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? app.primaryColor.withValues(alpha: 0.15)
+                                  ? app.accentColor(context).withValues(alpha: 0.15)
                                   : Colors.transparent,
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: app.logoPath.isNotEmpty
+                            child: app.logoFile.isNotEmpty
                                 ? Image.asset(
-                                    app.logoPath,
+                                    app.logoPath(context),
                                     height: 40,
                                     width: 40,
                                     errorBuilder: (_, __, ___) => Icon(
-                                      Icons.apps,
+                                      app.fallbackIcon,
                                       color: isSelected
-                                          ? app.primaryColor
+                                          ? app.accentColor(context)
                                           : colorScheme.outline,
                                       size: 40,
                                     ),
@@ -118,7 +122,7 @@ class _ProductSectionState extends State<ProductSection> {
                                 : Icon(
                                     Icons.apps,
                                     color: isSelected
-                                        ? app.primaryColor
+                                        ? app.accentColor(context)
                                         : colorScheme.outline,
                                     size: 40,
                                   ),
@@ -133,7 +137,7 @@ class _ProductSectionState extends State<ProductSection> {
                                   ? FontWeight.w700
                                   : FontWeight.w500,
                               color: isSelected
-                                  ? app.primaryColor
+                                  ? app.accentColor(context)
                                   : colorScheme.outline,
                             ),
                             textAlign: TextAlign.center,
@@ -149,18 +153,21 @@ class _ProductSectionState extends State<ProductSection> {
                             ),
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? app.primaryColor.withValues(alpha: 0.15)
+                                  ? app.accentColor(context).withValues(alpha: 0.15)
                                   : colorScheme.surfaceContainerHighest,
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Text(
-                              app.version,
-                              style: TextStyle(
-                                fontSize: 9,
-                                color: isSelected
-                                    ? app.primaryColor
-                                    : colorScheme.outline,
-                                fontWeight: FontWeight.w600,
+                            child: AppReleasesBuilder(
+                              app: app,
+                              builder: (context, releases) => Text(
+                                releases.version,
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  color: isSelected
+                                      ? app.accentColor(context)
+                                      : colorScheme.outline,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ),
@@ -190,7 +197,7 @@ class _ProductSectionState extends State<ProductSection> {
               ),
             ],
           ),
-          child: ProductCard(app: AppConstants.allApps[_selectedIndex]),
+          child: ProductCard(app: apps[_selectedIndex]),
         ),
       ],
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/generated/app_localizations.dart';
+
 class ScreenshotGallery extends StatefulWidget {
   final List<String> screenshots;
   final Color accentColor;
@@ -56,7 +58,7 @@ class _ScreenshotGalleryState extends State<ScreenshotGallery> {
         Row(
           children: [
             Text(
-              'Галерея',
+              AppLocalizations.of(context).galleryTitle,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

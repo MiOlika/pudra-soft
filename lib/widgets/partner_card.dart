@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/partner.dart';
+import '../utils/app_theme.dart';
 
 class PartnerCard extends StatelessWidget {
   final Partner partner;
@@ -38,13 +39,13 @@ class PartnerCard extends StatelessWidget {
                     vertical: isMobile ? 8 : 10,
                   ),
                   decoration: BoxDecoration(
-                    color: colorScheme.onSurface,
+                    color: AppColors.of(context).logoBackground,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.asset(
-                      partner.logoPath,
+                      AppImages.of(context).image(partner.logoFile),
                     ),
                   ),
                 ),

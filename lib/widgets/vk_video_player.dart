@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../utils/app_theme.dart';
+
 class VkVideoPlayer extends StatelessWidget {
   final String videoOwnerId;
   final String videoId;
@@ -53,10 +55,7 @@ class VkVideoPlayer extends StatelessWidget {
               // затемнение
               Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onPrimary
-                      .withValues(alpha: 0.6),
+                  color: AppColors.of(context).videoOverlay,
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),

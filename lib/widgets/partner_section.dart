@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pudra_soft/widgets/partner_card.dart';
 
+import '../l10n/generated/app_localizations.dart';
 import '../utils/partners.dart';
 import 'custom_separator.dart';
 
@@ -12,6 +13,7 @@ class PartnerSection extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
     final colorScheme = Theme.of(context).colorScheme;
+    final strings = AppLocalizations.of(context);
 
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -23,7 +25,7 @@ class PartnerSection extends StatelessWidget {
             const CustomSeparator(),
             const SizedBox(height: 16),
             Text(
-              'Партнеры',
+              strings.partnersTitle,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     fontSize: isMobile ? 22 : null,
@@ -49,7 +51,7 @@ class PartnerSection extends StatelessWidget {
                     spacing: 20, // Горизонтальный отступ
                     runSpacing: 20, // Вертикальный отступ
                     alignment: WrapAlignment.center,
-                    children: Partners.partners.map((partner) {
+                    children: Partners.partnersFor(strings).map((partner) {
                       return SizedBox(
                         width: cardWidth,
                         child: PartnerCard(partner: partner),

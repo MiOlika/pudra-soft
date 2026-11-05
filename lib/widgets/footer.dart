@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/generated/app_localizations.dart';
+import '../utils/app_theme.dart';
 import '../utils/constants.dart';
 import 'custom_separator.dart';
 
@@ -9,6 +11,7 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final strings = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 30),
       decoration: BoxDecoration(
@@ -24,15 +27,15 @@ class Footer extends StatelessWidget {
                 height: 35,
                 child: ClipRRect(
                   child: Image.asset(
-                    'assets/images/pudra_soft_logo.png',
+                    AppImages.of(context).image('pudra_soft_logo.png'),
                   ),
                 ),
               ),
               const SizedBox(width: 12),
-              const Text(
+              Text(
                 'Pudra Soft',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: colorScheme.onSurface,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -46,7 +49,7 @@ class Footer extends StatelessWidget {
             OutlinedButton.icon(
               onPressed: () => LinkLauncher.launchUrlString(AppConstants.vkUrl),
               icon: const Icon(Icons.people, size: 18),
-              label: const Text('Группа ВКонтакте'),
+              label: Text(strings.vkGroup),
               style: OutlinedButton.styleFrom(
                 foregroundColor: colorScheme.outline,
                 side: BorderSide(color: colorScheme.outline),
@@ -61,7 +64,7 @@ class Footer extends StatelessWidget {
               onPressed: () =>
                   LinkLauncher.launchUrlString(AppConstants.maxUrl),
               icon: const Icon(Icons.mark_unread_chat_alt, size: 18),
-              label: const Text('Канал в MAX'),
+              label: Text(strings.maxChannel),
               style: OutlinedButton.styleFrom(
                 foregroundColor: colorScheme.outline,
                 side: BorderSide(color: colorScheme.outline),
@@ -75,7 +78,7 @@ class Footer extends StatelessWidget {
           ]),
           const SizedBox(height: 16),
           Text(
-            '© 2026 Pudra Soft. Все права защищены.',
+            strings.copyright,
             style: TextStyle(
               color: colorScheme.outline,
               fontSize: 14,
@@ -83,7 +86,7 @@ class Footer extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Приложения работают полностью локально. Ваши данные — только на вашем компьютере.',
+            strings.footerNote,
             style: TextStyle(
               color: colorScheme.outline,
               fontSize: 12,

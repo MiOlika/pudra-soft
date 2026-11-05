@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/generated/app_localizations.dart';
 import '../utils/constants.dart';
 
 class FeaturesSection extends StatelessWidget {
@@ -10,6 +11,7 @@ class FeaturesSection extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
+    final strings = AppLocalizations.of(context);
 
     // Вычисляем ширину карточки
     double getCardWidth() {
@@ -30,7 +32,7 @@ class FeaturesSection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Почему выбирают нас',
+            strings.whyUsTitle,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: isMobile ? 22 : null,
@@ -39,9 +41,7 @@ class FeaturesSection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            isMobile
-                ? 'Приложения от Pudra Soft для продуктивной работы\nс полной приватностью'
-                : 'Приложения от Pudra Soft созданы для продуктивной работы\nс полной приватностью ваших данных',
+            isMobile ? strings.whyUsSubtitleMobile : strings.whyUsSubtitle,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: colorScheme.outline,
@@ -55,7 +55,7 @@ class FeaturesSection extends StatelessWidget {
             spacing: 16,
             runSpacing: 16,
             alignment: WrapAlignment.center,
-            children: AppConstants.features.map((feature) {
+            children: AppConstants.featuresFor(strings).map((feature) {
               return SizedBox(
                 width: getCardWidth(),
                 height: 200,

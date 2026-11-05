@@ -2,6 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../l10n/generated/app_localizations.dart';
+import '../utils/app_theme.dart';
 import 'border_painter.dart';
 
 class HeroSection extends StatefulWidget {
@@ -37,6 +39,9 @@ class _HeroSectionState extends State<HeroSection>
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
     final colorScheme = Theme.of(context).colorScheme;
+    final strings = AppLocalizations.of(context);
+    final colors = AppColors.of(context);
+    final images = AppImages.of(context);
 
     return AnimatedBuilder(
       animation: _animation,
@@ -47,9 +52,9 @@ class _HeroSectionState extends State<HeroSection>
             horizontal: isMobile ? 16 : 24,
             vertical: isMobile ? 40 : 60,
           ),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/banner.jpg'),
+              image: AssetImage(images.image('banner.jpg')),
               fit: BoxFit.cover,
               alignment: Alignment.center,
             ),
@@ -68,9 +73,9 @@ class _HeroSectionState extends State<HeroSection>
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    colorScheme.surface.withValues(alpha: 0.4),
-                    colorScheme.surfaceBright.withValues(alpha: 0.6),
-                    colorScheme.surface.withValues(alpha: 0.4),
+                    colorScheme.surface.withValues(alpha: colors.heroEdgeOpacity),
+                    colorScheme.surfaceBright.withValues(alpha: colors.heroCenterOpacity),
+                    colorScheme.surface.withValues(alpha: colors.heroEdgeOpacity),
                   ],
                 ),
               ),
@@ -95,7 +100,7 @@ class _HeroSectionState extends State<HeroSection>
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
                             child: Image.asset(
-                              'assets/images/pudra_soft_logo.png',
+                              images.image('pudra_soft_logo.png'),
                             ),
                           ),
                         ),
@@ -105,9 +110,7 @@ class _HeroSectionState extends State<HeroSection>
                   const SizedBox(height: 24),
 
                   Text(
-                    isMobile
-                        ? 'Локальное ПО для\nпродуктивной работы'
-                        : 'Локальное ПО для\nпродуктивной работы',
+                    strings.heroTitle,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                           color: colorScheme.onSurface,
@@ -137,9 +140,7 @@ class _HeroSectionState extends State<HeroSection>
                     padding:
                         EdgeInsets.symmetric(horizontal: isMobile ? 0 : 40),
                     child: Text(
-                      isMobile
-                          ? 'Бесплатные приложения для Windows,\nработающие полностью автономно'
-                          : 'Бесплатные приложения для Windows, которые работают полностью автономно.\nВаши данные — только на вашем компьютере.',
+                      isMobile ? strings.heroSubtitleMobile : strings.heroSubtitle,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: colorScheme.onSurfaceVariant,
@@ -170,9 +171,7 @@ class _HeroSectionState extends State<HeroSection>
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          isMobile
-                              ? 'Бесплатно • Без подписки'
-                              : 'Бесплатно • Без подписки • Полная автономность',
+                          isMobile ? strings.heroBadgeMobile : strings.heroBadge,
                           style:
                               Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     color: colorScheme.onSurface,

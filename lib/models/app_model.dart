@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/generated/app_localizations.dart';
+import '../utils/app_theme.dart';
+
 class AppModel {
   final String id;
   final String title;
   final String subtitle;
+
+  /// Запасная версия на случай, если GitHub недоступен.
   final String version;
+
+  /// Имя репозитория издателя на GitHub, из которого загружаются релизы.
+  final String githubRepo;
   final String description;
   final String detailedDescription;
-  final String downloadUrl;
-  final Color primaryColor;
-  final String logoPath;
+
+  /// Цвет приложения. Значения для каждой темы заданы в [AppColors].
+  final AppAccent accent;
+
+  /// Имя файла логотипа в папке `assets/images/<тема>/`.
+  final String logoFile;
+
+  /// Значок на случай, если файла логотипа нет.
+  final IconData fallbackIcon;
   final String? videoPath;
-  final List<String> screenshots;
+
+  /// Имена файлов в папке `assets/screenshots/<тема>/`.
+  final List<String> screenshotFiles;
   final List<String> features;
   final List<String> benefits;
   final List<FaqItem> faqs; // Добавляем FAQ для каждого приложения
@@ -22,186 +38,159 @@ class AppModel {
     required this.title,
     required this.subtitle,
     required this.version,
+    required this.githubRepo,
     required this.description,
     required this.detailedDescription,
-    required this.downloadUrl,
-    required this.primaryColor,
-    required this.logoPath,
+    required this.accent,
+    required this.logoFile,
+    this.fallbackIcon = Icons.apps,
     this.videoPath,
-    this.screenshots = const [],
+    this.screenshotFiles = const [],
     required this.features,
     this.benefits = const [],
     this.faqs = const [], // По умолчанию пустой список
     this.category = 'main',
   });
 
+  /// Цвет приложения для текущей темы.
+  Color accentColor(BuildContext context) {
+    return AppColors.of(context).accent(accent);
+  }
+
+  /// Логотип для текущей темы.
+  String logoPath(BuildContext context) {
+    return AppImages.of(context).image(logoFile);
+  }
+
+  /// Скриншоты для текущей темы.
+  List<String> screenshots(BuildContext context) {
+    final images = AppImages.of(context);
+    return screenshotFiles.map(images.screenshot).toList(growable: false);
+  }
+
+  /// Страница со всеми релизами приложения на GitHub.
+  String get releasesUrl => 'https://github.com/MiOlika/$githubRepo/releases';
+
+  /// Запасная ссылка, если GitHub API недоступен: страница последнего релиза.
+  /// Прямая ссылка `latest/download/<файл>` не подходит, потому что в именах
+  /// установщиков есть номер версии.
+  String get downloadUrl => '$releasesUrl/latest';
+
   // Фабричный метод для создания DoSka
-  factory AppModel.doska() {
-    return const AppModel(
+  factory AppModel.doska(AppLocalizations l) {
+    return AppModel(
       id: 'doska',
       title: 'DoSka',
-      subtitle: 'Конструктор проектов',
+      subtitle: l.doskaSubtitle,
       version: '1.0.3.0',
-      description: 'Персональный конструктор проектов для Windows',
-      detailedDescription: '''
-DoSka — это персональный конструктор проектов для Windows. Простое и мощное приложение 
-для визуального планирования, которое поможет структурировать любую задачу: 
-от бизнес-процесса до учебного проекта.
-
-Приложение работает полностью локально, без подключения к интернету и облачным сервисам, 
-гарантируя, что все данные останутся только на вашем компьютере.
-
-Решение позволяет собирать пользовательские истории, визуализировать процессы и техкарты, 
-а также декомпозировать задачи любого уровня сложности.
-''',
-      downloadUrl:
-          'https://github.com/MiOlika/DoSka/releases/download/1.0.3.0/DoSka_1.0.3.0.msi',
-      primaryColor: Color(0xFFBF7DC4),
-      logoPath: 'assets/images/doska_logo.png',
+      githubRepo: 'DoSka',
+      description: l.doskaDescription,
+      detailedDescription: l.doskaDetails,
+      accent: AppAccent.doska,
+      logoFile: 'doska_logo.png',
       videoPath: '456239019',
-      screenshots: [
-        'assets/screenshots/doska_1.png',
-        'assets/screenshots/doska_2.png',
-        'assets/screenshots/doska_3.png',
+      screenshotFiles: const [
+        'doska_1.png',
+        'doska_2.png',
+        'doska_3.png',
       ],
       features: [
-        '📋 Иерархические списки задач (WBS)',
-        '📝 Сбор пользовательских историй',
-        '🔗 Связи между заметками',
-        '✅ Чек-листы',
-        '🎨 Управление временем выполнения',
+        l.doskaFeature1,
+        l.doskaFeature2,
+        l.doskaFeature3,
+        l.doskaFeature4,
+        l.doskaFeature5,
       ],
       benefits: [
-        'Полная автономность (без интернета и облаков)',
-        'Мгновенная установка из одного файла',
-        'Визуальный конструктор для любых проектов',
-        'Все данные под вашим полным контролем',
-        'Бесплатно для частного использования',
+        l.doskaBenefit1,
+        l.doskaBenefit2,
+        l.doskaBenefit3,
+        l.doskaBenefit4,
+        l.doskaBenefit5,
       ],
       faqs: [
-        FaqItem(
-          question: 'Как работает DoSka?',
-          answer:
-              'Это локальный конструктор проектов для Windows. Прототипом послужила магнитная доска с цветными стикерами (заметками). Здесь можно создать несколько проектов с досками. Заметки можно связывать между собой и запускать таймеры для контроля времени.',
-        ),
-        FaqItem(
-          question: 'Сколько проектов можно создать?',
-          answer:
-              'Можно создать до 20 проектов. В каждом проекте - до 20 досок, на каждой доске - до 100 заметок.',
-        ),
-        FaqItem(
-          question: 'Можно ли экспортировать проект?',
-          answer:
-              'На данный момент функция экспорта проектов находится в разработке. Это гарантирует, что никто не изменит ваши данные без вашего ведома.',
-        ),
-        FaqItem(
-          question: 'Почему Windows показывает предупреждение при установке?',
-          answer:
-              'Официальное одобрение от Microsoft ожидается, но из-за санкционных ограничений процесс затягивается. Это не влияет на безопасность — приложение не собирает данные и полностью безопасно.',
-        ),
+        FaqItem(question: l.doskaFaq1Question, answer: l.doskaFaq1Answer),
+        FaqItem(question: l.doskaFaq2Question, answer: l.doskaFaq2Answer),
+        FaqItem(question: l.doskaFaq3Question, answer: l.doskaFaq3Answer),
+        FaqItem(question: l.doskaFaq4Question, answer: l.doskaFaq4Answer),
       ],
     );
   }
 
   // Фабричный метод для создания TimeFiller
-  factory AppModel.timeFiller() {
-    return const AppModel(
+  factory AppModel.timeFiller(AppLocalizations l) {
+    return AppModel(
       id: 'timefiller',
       title: 'Time Filler',
-      subtitle: 'Планировщик для команд',
+      subtitle: l.timeFillerSubtitle,
       version: '0.3.3.0',
-      description: 'Локальный планировщик для небольших команд',
-      detailedDescription: '''
-TimeFiller — это локальный планировщик для Windows, созданный для небольших команд. 
-Приложение работает полностью автономно, без подключения к интернету и облачным сервисам, 
-гарантируя, что все данные останутся только на вашем компьютере.
-
-Решение позволяет управлять отпусками сотрудников, вести запись клиентов, 
-планировать встречи и регулярные события, а также организовывать работу по спринтам.
-''',
-      downloadUrl:
-          'https://github.com/MiOlika/Time-Filler/releases/download/0.3.3.0/Time_Filler_0.3.3.0.msi',
-      primaryColor: Color(0xFF00B894),
-      logoPath: 'assets/images/timefiller_logo.png',
+      githubRepo: 'Time-Filler',
+      description: l.timeFillerDescription,
+      detailedDescription: l.timeFillerDetails,
+      accent: AppAccent.timeFiller,
+      logoFile: 'timefiller_logo.png',
       videoPath: '456239017',
-      screenshots: [
-        'assets/screenshots/timefiller_1.png',
-        'assets/screenshots/timefiller_2.png',
-        'assets/screenshots/timefiller_3.png',
+      screenshotFiles: const [
+        'timefiller_1.png',
+        'timefiller_2.png',
+        'timefiller_3.png',
       ],
       features: [
-        '📅 Графики смен (2 через 2, 5/2)',
-        '🏖️ Управление отпусками сотрудников',
-        '👥 Запись клиентов и встреч',
-        '🔄 Поддержка спринтов',
-        '🎯 Фильтрация по категориям',
+        l.timeFillerFeature1,
+        l.timeFillerFeature2,
+        l.timeFillerFeature3,
+        l.timeFillerFeature4,
+        l.timeFillerFeature5,
       ],
       benefits: [
-        'Полная автономность (без интернета и облаков)',
-        'Мгновенная установка из одного файла',
-        'Визуальный календарь для всех сценариев',
-        'Настройка прозрачности интерфейса',
-        'Бесплатно для небольших команд',
+        l.timeFillerBenefit1,
+        l.timeFillerBenefit2,
+        l.timeFillerBenefit3,
+        l.timeFillerBenefit4,
+        l.timeFillerBenefit5,
       ],
       faqs: [
-        FaqItem(
-          question: 'Как работает TimeFiller?',
-          answer:
-              'Это локальный планировщик для Windows. Вы создаёте диапазоны с категориями, и они отображаются в календаре.',
-        ),
-        FaqItem(
-          question: 'Можно ли создавать графики 2 через 2?',
-          answer:
-              'Да, в приложении есть быстрая настройка смен с помощью повторов диапазонов. Вы можете создать любой график работы.',
-        ),
-        FaqItem(
-          question: 'Как вести учёт отпусков?',
-          answer:
-              'Создайте диапазон с категорией "Отпуск" для нужного сотрудника. Все отпуска будут отображаться в календаре и их можно фильтровать.',
-        ),
-        FaqItem(
-          question: 'Поддерживается ли интеграция с другими программами?',
-          answer:
-              'Нет, TimeFiller — полностью самостоятельное приложение. Оно не требует интеграций и работает локально.',
-        ),
+        FaqItem(question: l.timeFillerFaq1Question, answer: l.timeFillerFaq1Answer),
+        FaqItem(question: l.timeFillerFaq2Question, answer: l.timeFillerFaq2Answer),
+        FaqItem(question: l.timeFillerFaq3Question, answer: l.timeFillerFaq3Answer),
+        FaqItem(question: l.timeFillerFaq4Question, answer: l.timeFillerFaq4Answer),
       ],
     );
   }
 
-  // Метод для добавления нового приложения
-  factory AppModel.custom({
-    required String id,
-    required String title,
-    required String subtitle,
-    required String version,
-    required String description,
-    required String detailedDescription,
-    required String downloadUrl,
-    required Color primaryColor,
-    required String logoPath,
-    String? videoPath,
-    List<String> screenshots = const [],
-    required List<String> features,
-    List<String> benefits = const [],
-    List<FaqItem> faqs = const [],
-    String category = 'main',
-  }) {
+  // Фабричный метод для создания Clip Ink
+  factory AppModel.clipInk(AppLocalizations l) {
     return AppModel(
-      id: id,
-      title: title,
-      subtitle: subtitle,
-      version: version,
-      description: description,
-      detailedDescription: detailedDescription,
-      downloadUrl: downloadUrl,
-      primaryColor: primaryColor,
-      logoPath: logoPath,
-      videoPath: videoPath,
-      screenshots: screenshots,
-      features: features,
-      benefits: benefits,
-      faqs: faqs,
-      category: category,
+      id: 'clipink',
+      title: 'Clip Ink',
+      subtitle: l.clipInkSubtitle,
+      version: '1.0.0.0',
+      githubRepo: 'Clip-Ink',
+      description: l.clipInkDescription,
+      detailedDescription: l.clipInkDetails,
+      accent: AppAccent.clipInk,
+      logoFile: 'clip_ink_logo.png',
+      fallbackIcon: Icons.videocam_rounded,
+      features: [
+        l.clipInkFeature1,
+        l.clipInkFeature2,
+        l.clipInkFeature3,
+        l.clipInkFeature4,
+        l.clipInkFeature5,
+      ],
+      benefits: [
+        l.clipInkBenefit1,
+        l.clipInkBenefit2,
+        l.clipInkBenefit3,
+        l.clipInkBenefit4,
+        l.clipInkBenefit5,
+      ],
+      faqs: [
+        FaqItem(question: l.clipInkFaq1Question, answer: l.clipInkFaq1Answer),
+        FaqItem(question: l.clipInkFaq2Question, answer: l.clipInkFaq2Answer),
+        FaqItem(question: l.clipInkFaq3Question, answer: l.clipInkFaq3Answer),
+        FaqItem(question: l.clipInkFaq4Question, answer: l.clipInkFaq4Answer),
+      ],
     );
   }
 }
