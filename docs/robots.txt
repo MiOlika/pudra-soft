@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pudra-soft.ru/sitemap.xml
