@@ -1,31 +1,12 @@
-'use strict';
-
-self.addEventListener('install', () => {
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', (event) => {
+// Прежний сайт на Flutter устанавливал в браузер service worker с этим именем.
+// Эта версия удаляет его и его кэш, чтобы посетители сразу видели новый сайт.
+self.addEventListener('install', function () { self.skipWaiting(); });
+self.addEventListener('activate', function (event) {
   event.waitUntil(
-    (async () => {
-      try {
-        await self.registration.unregister();
-      } catch (e) {
-        console.warn('Failed to unregister the service worker:', e);
-      }
-
-      try {
-        const clients = await self.clients.matchAll({
-          type: 'window',
-        });
-        // Reload clients to ensure they are not using the old service worker.
-        clients.forEach((client) => {
-          if (client.url && 'navigate' in client) {
-            client.navigate(client.url);
-          }
-        });
-      } catch (e) {
-        console.warn('Failed to navigate some service worker clients:', e);
-      }
-    })()
+    caches.keys()
+      .then(function (keys) { return Promise.all(keys.map(function (key) { return caches.delete(key); })); })
+      .then(function () { return self.registration.unregister(); })
+      .then(function () { return self.clients.matchAll({ type: 'window' }); })
+      .then(function (clients) { clients.forEach(function (client) { client.navigate(client.url); }); })
   );
 });
