@@ -32,6 +32,7 @@
   --accent-doska: #d08fd6;
   --accent-time-filler: #00b894;
   --accent-clip-ink: #6c9eff;
+  --accent-film-ink: #ff6b8e;
 }
 
 :root[data-theme="light"] {
@@ -66,11 +67,13 @@
   --accent-doska: #8a4590;
   --accent-time-filler: #00705a;
   --accent-clip-ink: #2c5bc0;
+  --accent-film-ink: #c22d55;
 }
 
 .app-doska { --accent: var(--accent-doska); }
 .app-time-filler { --accent: var(--accent-time-filler); }
 .app-clip-ink { --accent: var(--accent-clip-ink); }
+.app-film-ink { --accent: var(--accent-film-ink); }
 
 /* Основа */
 
@@ -399,7 +402,7 @@ section[id] { scroll-margin-top: 80px; }
 
 .app-tabs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   margin-bottom: 24px;
 }
@@ -466,6 +469,7 @@ section[id] { scroll-margin-top: 80px; }
 }
 
 @media (max-width: 599px) {
+  .app-tabs { grid-template-columns: repeat(2, 1fr); }
   .app-tab { flex-direction: column; gap: 6px; text-align: center; }
   .app-tab-text { width: 100%; }
 }
@@ -618,6 +622,13 @@ section[id] { scroll-margin-top: 80px; }
 }
 
 .gallery-slide img { width: 100%; height: 100%; object-fit: contain; }
+
+.gallery-cover {
+  display: grid;
+  place-items: center;
+}
+
+.gallery-cover img { width: auto; height: 72%; object-fit: contain; }
 
 .gallery-arrow {
   position: absolute;

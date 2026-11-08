@@ -9,37 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-  intl: any  # Версию задаёт flutter_localizations
-  shared_preferences: ^2.3.0  # Запоминает язык и тему
-  cupertino_icons: ^1.0.6
-  url_launcher: ^6.2.5
-  http: ^1.2.0  # Загрузка релизов с GitHub
-  google_fonts: ^6.1.0
-  video_player: ^2.8.1  # Для видео
-  carousel_slider: ^4.2.1  # Для красивой карусели
-  flutter_launcher_icons: ^0.13.1
-#  flutter pub run flutter_launcher_icons
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
-
-flutter:
-  uses-material-design: true
-  generate: true  # Генерация переводов из lib/l10n/*.arb
-  assets:
-    - assets/images/dark/
-    - assets/images/light/
-    - assets/screenshots/dark/
-    - assets/screenshots/light/
-
-flutter_launcher_icons:
-  image_path: "assets/images/dark/pudra_soft_logo.png" # путь к вашему логотипу (минимум 512x512)
-  web:
-    generate: true
-    image_path: "assets/images/dark/pudra_soft_logo.png"
-    background_color: "#ffffff"
-    theme_color: "#0175c2"

@@ -41,6 +41,9 @@ APPS = [
     dict(key='clipInk', slug='clip-ink', name='Clip Ink', repo='Clip-Ink',
          version='1.0.1.1', logo='clip_ink_logo.webp', video=None,
          shots=['clip_ink_1.webp'], category='MultimediaApplication'),
+    dict(key='filmInk', slug='film-ink', name='Film Ink', repo='Film-Ink',
+         version='1.0.0.1', logo='film_ink_logo.webp', video=None,
+         shots=['film_ink_1.webp'], category='MultimediaApplication'),
 ]
 
 # Заголовки и описания отдельных страниц приложений для поисковиков.
@@ -69,6 +72,14 @@ APP_PAGES = {
                'Clip Ink is a lightweight Windows screen recorder: frame, full screen, or window, '
                'microphone and system audio, drawing and captions. Saves to MP4. Free download.'),
     },
+    'filmInk': {
+        'ru': ('Film Ink — бесплатный видеоредактор для Windows',
+               'Film Ink — простой видеоредактор для Windows: монтаж и склейка видео на таймлайне, музыка, '
+               'скорость, яркость и переходы, экспорт в MP4, MKV, WebM и GIF. Скачать бесплатно.'),
+        'en': ('Film Ink — free video editor for Windows',
+               'Film Ink is a simple video editor for Windows: cut and join clips on a timeline, add music, '
+               'adjust speed and color, export to MP4, MKV, WebM, and GIF. Free download.'),
+    },
 }
 
 FEATURES = [('Offline', 'lock'), ('Install', 'bolt'), ('Free', 'money_off'),
@@ -84,15 +95,15 @@ JS_STRINGS = [
 ]
 
 PAGE = {
-    'ru': dict(title='Pudra Soft — бесплатные приложения для Windows: DoSka, Time Filler, Clip Ink',
+    'ru': dict(title='Pudra Soft — бесплатные приложения для Windows: DoSka, Time Filler, Clip Ink, Film Ink',
                description='Pudra Soft — бесплатные локальные приложения для Windows: DoSka для проектов, '
-                           'Time Filler для расписаний и Clip Ink для записи экрана. Работают без интернета '
-                           'и подписок.',
+                           'Time Filler для расписаний, Clip Ink для записи экрана и Film Ink для монтажа '
+                           'видео. Работают без интернета и подписок.',
                other='en', other_label='English', locale='ru_RU'),
-    'en': dict(title='Pudra Soft — free Windows apps: DoSka, Time Filler, Clip Ink',
+    'en': dict(title='Pudra Soft — free Windows apps: DoSka, Time Filler, Clip Ink, Film Ink',
                description='Pudra Soft makes free local apps for Windows: DoSka for projects, Time Filler '
-                           'for schedules, and Clip Ink for screen recording. They work offline with no '
-                           'subscription.',
+                           'for schedules, Clip Ink for screen recording, and Film Ink for video editing. '
+                           'They work offline with no subscription.',
                other='ru', other_label='Русский', locale='en_US'),
 }
 
@@ -256,6 +267,15 @@ def render_hero(s):
 
 def render_gallery(app, s):
     shots = app['shots']
+    if not shots:
+        # Скриншотов ещё нет: в окне крупно показывается логотип приложения.
+        return f'''<div class="gallery">
+<div class="gallery-window">
+<div class="window-bar"><i></i><i></i><i></i>{esc(app['name'])}</div>
+<div class="gallery-view gallery-cover">{img(app.get('cover', app['logo']), app['name'], size=(384, 384))}</div>
+</div>
+</div>
+'''
     slides = ''.join(
         f'<button class="gallery-slide" type="button" aria-label="{esc(s["screenshotLabel"].format(app=app["name"], number=i))}">'
         f'{img(shot, s["screenshotLabel"].format(app=app["name"], number=i), lazy=i > 1)}</button>'
