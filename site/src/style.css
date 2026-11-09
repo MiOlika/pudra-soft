@@ -33,6 +33,7 @@
   --accent-time-filler: #00b894;
   --accent-clip-ink: #6c9eff;
   --accent-film-ink: #ff6b8e;
+  --accent-pudra-school: #f49ac1;
 }
 
 :root[data-theme="light"] {
@@ -68,12 +69,14 @@
   --accent-time-filler: #00705a;
   --accent-clip-ink: #2c5bc0;
   --accent-film-ink: #c22d55;
+  --accent-pudra-school: #b83a78;
 }
 
 .app-doska { --accent: var(--accent-doska); }
 .app-time-filler { --accent: var(--accent-time-filler); }
 .app-clip-ink { --accent: var(--accent-clip-ink); }
 .app-film-ink { --accent: var(--accent-film-ink); }
+.app-pudra-school { --accent: var(--accent-pudra-school); }
 
 /* Основа */
 
@@ -402,9 +405,13 @@ section[id] { scroll-margin-top: 80px; }
 
 .app-tabs {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   margin-bottom: 24px;
+}
+
+@media (max-width: 1099px) {
+  .app-tabs { grid-template-columns: repeat(3, 1fr); }
 }
 
 .app-tab {
@@ -470,6 +477,7 @@ section[id] { scroll-margin-top: 80px; }
 
 @media (max-width: 599px) {
   .app-tabs { grid-template-columns: repeat(2, 1fr); }
+  .app-tab:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .app-tab { flex-direction: column; gap: 6px; text-align: center; }
   .app-tab-text { width: 100%; }
 }

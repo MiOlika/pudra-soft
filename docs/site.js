@@ -174,23 +174,50 @@
     return dot === -1 ? '' : name.slice(dot + 1).toLowerCase();
   }
 
+  // Язык установщика берётся из имени файла: App-1.0-x64-ru.msi, App_en-US.msi и т.п.
+  var LANGUAGES = { ru: 'ru', rus: 'ru', russian: 'ru', en: 'en', eng: 'en', english: 'en' };
+  var languageNames = null;
+  try { languageNames = new Intl.DisplayNames([lang], { type: 'language' }); } catch (e) { /* старый браузер */ }
+
+  function assetLanguage(name) {
+    var parts = name.replace(/\.[^.]+$/, '').toLowerCase().split(/[-_.\s]+/);
+    for (var i = parts.length - 1; i >= 0; i--) {
+      if (LANGUAGES[parts[i]]) return LANGUAGES[parts[i]];
+    }
+    return null;
+  }
+
+  function languageName(code) {
+    var name = languageNames ? languageNames.of(code) : null;
+    if (!name || name === code) return code.toUpperCase();
+    return name.charAt(0).toLocaleUpperCase(lang) + name.slice(1);
+  }
+
+  // Сначала установщик на языке страницы, потом остальные языки, внутри — по типу файла.
+  function assetOrder(a) {
+    var langRank = a.lang === lang ? 0 : a.lang ? 2 : 1;
+    return langRank * 10 + INSTALLERS.indexOf(a.ext);
+  }
+
   function parseReleases(items) {
     return items
       .filter(function (item) { return !item.draft; })
       .map(function (item) {
         var assets = (item.assets || [])
           .filter(function (a) { return INSTALLERS.indexOf(extension(a.name)) !== -1; })
-          .sort(function (a, b) {
-            return INSTALLERS.indexOf(extension(a.name)) - INSTALLERS.indexOf(extension(b.name));
-          });
+          .map(function (a) {
+            return {
+              name: a.name, ext: extension(a.name), lang: assetLanguage(a.name),
+              size: a.size, url: a.browser_download_url
+            };
+          })
+          .sort(function (a, b) { return assetOrder(a) - assetOrder(b); });
         return {
           version: (item.tag_name || '').replace(/^v\.?/i, ''),
           date: item.published_at ? new Date(item.published_at) : null,
           page: item.html_url,
           prerelease: !!item.prerelease,
-          assets: assets.map(function (a) {
-            return { name: a.name, ext: extension(a.name), size: a.size, url: a.browser_download_url };
-          })
+          assets: assets
         };
       })
       .sort(function (a, b) { return (b.date || 0) - (a.date || 0); });
@@ -264,9 +291,13 @@
         }
         release.assets.forEach(function (asset) {
           var label = release.assets.length > 1
-            ? asset.ext.toUpperCase() + ', ' + fileSize(asset.size)
+            ? (asset.lang ? languageName(asset.lang) + ' · ' : '')
+              + asset.ext.toUpperCase() + ', ' + fileSize(asset.size)
             : format(strings.downloadWithSize, { size: fileSize(asset.size) });
-          actions.appendChild(link('btn btn-outline accent-btn', asset.url, label, 'download'));
+          var button = link('btn btn-outline accent-btn', asset.url, label, 'download');
+          button.title = asset.name;
+          if (asset.lang) button.hreflang = asset.lang;
+          actions.appendChild(button);
         });
 
         row.appendChild(info);

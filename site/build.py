@@ -44,6 +44,10 @@ APPS = [
     dict(key='filmInk', slug='film-ink', name='Film Ink', repo='Film-Ink',
          version='1.0.0.1', logo='film_ink_logo.webp', video=None,
          shots=['film_ink_1.webp'], category='MultimediaApplication'),
+    dict(key='pudraSchool', slug='pudra-school', name='Pudra School', repo='Pudra-School',
+         version='1.0.0.0', logo='pudra_school_logo.webp', video=None,
+         shots=['pudra_school_1.webp', 'pudra_school_2.webp', 'pudra_school_3.webp'],
+         category='EducationalApplication'),
 ]
 
 # Заголовки и описания отдельных страниц приложений для поисковиков.
@@ -80,6 +84,14 @@ APP_PAGES = {
                'Film Ink is a simple video editor for Windows: cut and join clips on a timeline, add music, '
                'adjust speed and color, export to MP4, MKV, WebM, and GIF. Free download.'),
     },
+    'pudraSchool': {
+        'ru': ('Pudra School — бесплатные обучающие игры для детей на Windows',
+               'Pudra School — обучающие игры для детей на Windows: алфавит и цифры, таблица умножения '
+               'и клавиатурный тренажёр слепой печати. Без интернета и рекламы. Скачать бесплатно.'),
+        'en': ('Pudra School — free learning games for kids on Windows',
+               'Pudra School is a set of learning games for kids on Windows: alphabet and numbers, '
+               'multiplication table, and a touch typing trainer. Offline, no ads. Free download.'),
+    },
 }
 
 FEATURES = [('Offline', 'lock'), ('Install', 'bolt'), ('Free', 'money_off'),
@@ -95,15 +107,15 @@ JS_STRINGS = [
 ]
 
 PAGE = {
-    'ru': dict(title='Pudra Soft — бесплатные приложения для Windows: DoSka, Time Filler, Clip Ink, Film Ink',
+    'ru': dict(title='Pudra Soft — бесплатные приложения для Windows: DoSka, Time Filler, Clip Ink, Film Ink, Pudra School',
                description='Pudra Soft — бесплатные локальные приложения для Windows: DoSka для проектов, '
-                           'Time Filler для расписаний, Clip Ink для записи экрана и Film Ink для монтажа '
-                           'видео. Работают без интернета и подписок.',
+                           'Time Filler для расписаний, Clip Ink для записи экрана, Film Ink для монтажа '
+                           'видео и Pudra School для учёбы детей. Работают без интернета и подписок.',
                other='en', other_label='English', locale='ru_RU'),
-    'en': dict(title='Pudra Soft — free Windows apps: DoSka, Time Filler, Clip Ink, Film Ink',
+    'en': dict(title='Pudra Soft — free Windows apps: DoSka, Time Filler, Clip Ink, Film Ink, Pudra School',
                description='Pudra Soft makes free local apps for Windows: DoSka for projects, Time Filler '
-                           'for schedules, Clip Ink for screen recording, and Film Ink for video editing. '
-                           'They work offline with no subscription.',
+                           'for schedules, Clip Ink for screen recording, Film Ink for video editing, and '
+                           'Pudra School for kids\' learning. They work offline with no subscription.',
                other='ru', other_label='Русский', locale='en_US'),
 }
 
