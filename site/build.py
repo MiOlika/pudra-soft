@@ -48,6 +48,9 @@ APPS = [
          version='1.0.0.0', logo='pudra_school_logo.webp', video=None,
          shots=['pudra_school_1.webp', 'pudra_school_2.webp', 'pudra_school_3.webp'],
          category='EducationalApplication'),
+    dict(key='po4taSchool', slug='po4ta-school', name='Po4ta School', repo='Po4ta-School',
+         version='1.0.0.0', logo='po4ta_school_logo.webp', video=None,
+         shots=['po4ta_school_1.webp'], category='EducationalApplication'),
 ]
 
 # Заголовки и описания отдельных страниц приложений для поисковиков.
@@ -92,6 +95,14 @@ APP_PAGES = {
                'Pudra School is a set of learning games for kids on Windows: alphabet and numbers, '
                'multiplication table, and a touch typing trainer. Offline, no ads. Free download.'),
     },
+    'po4taSchool': {
+        'ru': ('Po4ta School — бесплатный электронный журнал для школы на Windows',
+               'Po4ta School — электронный журнал для школы на Windows: учителя, классы, расписание, '
+               'отметки и домашние задания, письма родителям с оценками через Яндекс Почту. Скачать бесплатно.'),
+        'en': ('Po4ta School — free school gradebook for Windows',
+               'Po4ta School is a school gradebook for Windows: teachers, classes, timetable, grades and '
+               'homework, and emails to parents with grades via Yandex Mail. Free download.'),
+    },
 }
 
 FEATURES = [('Offline', 'lock'), ('Install', 'bolt'), ('Free', 'money_off'),
@@ -107,15 +118,17 @@ JS_STRINGS = [
 ]
 
 PAGE = {
-    'ru': dict(title='Pudra Soft — бесплатные приложения для Windows: DoSka, Time Filler, Clip Ink, Film Ink, Pudra School',
+    'ru': dict(title='Pudra Soft — бесплатные приложения для Windows',
                description='Pudra Soft — бесплатные локальные приложения для Windows: DoSka для проектов, '
                            'Time Filler для расписаний, Clip Ink для записи экрана, Film Ink для монтажа '
-                           'видео и Pudra School для учёбы детей. Работают без интернета и подписок.',
+                           'видео, Pudra School для учёбы детей и Po4ta School — журнал для школы. '
+                           'Без подписок.',
                other='en', other_label='English', locale='ru_RU'),
-    'en': dict(title='Pudra Soft — free Windows apps: DoSka, Time Filler, Clip Ink, Film Ink, Pudra School',
+    'en': dict(title='Pudra Soft — free Windows apps',
                description='Pudra Soft makes free local apps for Windows: DoSka for projects, Time Filler '
-                           'for schedules, Clip Ink for screen recording, Film Ink for video editing, and '
-                           'Pudra School for kids\' learning. They work offline with no subscription.',
+                           'for schedules, Clip Ink for screen recording, Film Ink for video editing, '
+                           'Pudra School for kids\' learning, and Po4ta School, a school gradebook. '
+                           'No subscription.',
                other='ru', other_label='Русский', locale='en_US'),
 }
 

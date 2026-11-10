@@ -2,74 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://pudra-soft.ru/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/"/>
   </url>
   <url>
     <loc>https://pudra-soft.ru/en/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/"/>
   </url>
   <url>
     <loc>https://pudra-soft.ru/doska/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/doska/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/doska/"/>
   </url>
   <url>
     <loc>https://pudra-soft.ru/en/doska/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/doska/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/doska/"/>
   </url>
   <url>
     <loc>https://pudra-soft.ru/time-filler/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/time-filler/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/time-filler/"/>
   </url>
   <url>
     <loc>https://pudra-soft.ru/en/time-filler/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/time-filler/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/time-filler/"/>
   </url>
   <url>
     <loc>https://pudra-soft.ru/clip-ink/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/clip-ink/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/clip-ink/"/>
   </url>
   <url>
     <loc>https://pudra-soft.ru/en/clip-ink/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/clip-ink/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/clip-ink/"/>
   </url>
   <url>
     <loc>https://pudra-soft.ru/film-ink/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/film-ink/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/film-ink/"/>
   </url>
   <url>
     <loc>https://pudra-soft.ru/en/film-ink/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/film-ink/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/film-ink/"/>
   </url>
   <url>
     <loc>https://pudra-soft.ru/pudra-school/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/pudra-school/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/pudra-school/"/>
   </url>
   <url>
     <loc>https://pudra-soft.ru/en/pudra-school/</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/pudra-school/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/pudra-school/"/>
+  </url>
+  <url>
+    <loc>https://pudra-soft.ru/po4ta-school/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/po4ta-school/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/po4ta-school/"/>
+  </url>
+  <url>
+    <loc>https://pudra-soft.ru/en/po4ta-school/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pudra-soft.ru/po4ta-school/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pudra-soft.ru/en/po4ta-school/"/>
   </url>
 </urlset>

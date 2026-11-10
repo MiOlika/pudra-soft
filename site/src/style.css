@@ -34,6 +34,7 @@
   --accent-clip-ink: #6c9eff;
   --accent-film-ink: #ff6b8e;
   --accent-pudra-school: #f49ac1;
+  --accent-po4ta-school: #9c94ff;
 }
 
 :root[data-theme="light"] {
@@ -70,6 +71,7 @@
   --accent-clip-ink: #2c5bc0;
   --accent-film-ink: #c22d55;
   --accent-pudra-school: #b83a78;
+  --accent-po4ta-school: #4f46c8;
 }
 
 .app-doska { --accent: var(--accent-doska); }
@@ -77,6 +79,7 @@
 .app-clip-ink { --accent: var(--accent-clip-ink); }
 .app-film-ink { --accent: var(--accent-film-ink); }
 .app-pudra-school { --accent: var(--accent-pudra-school); }
+.app-po4ta-school { --accent: var(--accent-po4ta-school); }
 
 /* Основа */
 
@@ -405,7 +408,7 @@ section[id] { scroll-margin-top: 80px; }
 
 .app-tabs {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 10px;
   margin-bottom: 24px;
 }

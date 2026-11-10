@@ -1,6 +1,6 @@
 # Сайт Pudra Soft 
 
-Сайт [pudra-soft.ru](https://pudra-soft.ru) с бесплатными приложениями для Windows: DoSka, Time Filler, Clip Ink, Film Ink и Pudra School.
+Сайт [pudra-soft.ru](https://pudra-soft.ru) с бесплатными приложениями для Windows: DoSka, Time Filler, Clip Ink, Film Ink, Pudra School и Po4ta School.
 
 Сайт сделан на обычном HTML, CSS и JavaScript без фреймворков. Страницы собираются скриптом на Python из словарей
 с текстами, а готовый сайт лежит в папке `docs/`, откуда его публикует GitHub Pages.
@@ -32,8 +32,8 @@ docs/                    готовый сайт, создаётся сборк�
 | Адрес | Страница |
 |---|---|
 | `/` и `/en/` | Главная на русском и английском |
-| `/doska/`, `/time-filler/`, `/clip-ink/`, `/film-ink/`, `/pudra-school/` | Страницы приложений на русском |
-| `/en/doska/`, `/en/time-filler/`, `/en/clip-ink/`, `/en/film-ink/`, `/en/pudra-school/` | Страницы приложений на английском |
+| `/doska/`, `/time-filler/`, `/clip-ink/`, `/film-ink/`, `/pudra-school/`, `/po4ta-school/` | Страницы приложений на русском |
+| `/en/doska/`, `/en/time-filler/`, `/en/clip-ink/`, `/en/film-ink/`, `/en/pudra-school/`, `/en/po4ta-school/` | Страницы приложений на английском |
 | `/sitemap.xml`, `/robots.txt` | Карта сайта и правила для поисковиков, создаются сборкой |
 
 ## Что нужно установить
